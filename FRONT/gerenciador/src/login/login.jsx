@@ -3,7 +3,7 @@ import img from '../../public/Neide.jpg'
 import { useForm } from 'react-hook-form';
 
 function Login() {
-
+  
   const { register, handleSubmit } = useForm();
 
   const login = (user) => {
@@ -14,6 +14,27 @@ function Login() {
       alert('Preencha os campos de login e senha para acessar o sistema!');
     }
 
+    /*fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        login: login,
+        senha: senha
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Login bem-sucedido!');
+        // Redirecionar para a página principal ou dashboard
+      } else {
+        alert('Login ou senha incorretos. Tente novamente.');
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao fazer login:', error);
+      alert('Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.');
+    });*/
   }
 
   return (
