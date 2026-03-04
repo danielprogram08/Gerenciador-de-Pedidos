@@ -1,17 +1,27 @@
 import './login.css'
+import SpinnerLoading from '../spinner-loading/spinner.jsx'
 import img from '../../public/Neide.jpg'
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 function Login() {
-  
-  const { register, handleSubmit } = useForm();
 
-  const login = (user) => {
+  const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = (user) => {
+    setLoading(true);
+
     const login = user.inputLogin;
     const senha = user.inputSenha;
 
-    if (login == '' && senha == '' || login == '' || senha == '') {
+    console.log('Login:', login);
+    console.log('Senha:', senha);
+
+    if (!login || !senha) {
       alert('Preencha os campos de login e senha para acessar o sistema!');
+      setLoading(false);
+      return;
     }
 
     /*fetch('http://localhost:8080/login', {
@@ -39,7 +49,8 @@ function Login() {
 
   return (
     <>
-      <form className='Login-container' onSubmit={handleSubmit(login)}>
+      {loading && <SpinnerLoading />}
+      <form className='Login-container' onSubmit={handleSubmit(handleLogin)}>
         <img src={img} alt='Neide' />
         <div className='login'>
           <h1>Login</h1>
