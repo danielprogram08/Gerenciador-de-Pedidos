@@ -55,6 +55,10 @@ input::placeholder {
 }
 
 button {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     height: 72px;
     width: 245px;
     margin-top: 30px;

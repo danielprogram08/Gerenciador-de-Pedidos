@@ -15,9 +15,6 @@ function Login() {
     const login = user.inputLogin;
     const senha = user.inputSenha;
 
-    console.log('Login:', login);
-    console.log('Senha:', senha);
-
     if (!login || !senha) {
       alert('Preencha os campos de login e senha para acessar o sistema!');
       setLoading(false);
@@ -49,7 +46,6 @@ function Login() {
 
   return (
     <>
-      {loading && <SpinnerLoading />}
       <form className='Login-container' onSubmit={handleSubmit(handleLogin)}>
         <img src={img} alt='Neide' />
         <div className='login'>
@@ -60,7 +56,10 @@ function Login() {
           <h1>Senha</h1>
           <input className='inputSenha' type='password' placeholder='Senha:' {...register('inputSenha')}/>
         </div>
-        <button type='submit'>Entrar</button>
+        <button type='submit'>
+          {!loading && <span className='titulobtn'>Entrar</span>}
+          {loading && <SpinnerLoading/>}
+        </button>
       </form>
     </>
   )
