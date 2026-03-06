@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "java",
+                "name": "Launch SpringBootApp",
+                "request": "launch",
+                "mainClass": "com.br.gerenciador.main.MainApplication",
+                "projectName": "main",
+                "env": {
+                    "DB_USER": "admin",
+                    "DB_PASSWORD": "admin"
+                }
+            }
+        ]
+}
