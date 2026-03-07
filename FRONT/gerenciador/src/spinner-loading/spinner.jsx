@@ -5,7 +5,7 @@ function SpinnerLoading() {
   return (
     <>
       <div className="spinner-border" role="status">
-        <span class="visually-hidden"></span>
+        <span className="visually-hidden"></span>
       </div>
     </>
   )
