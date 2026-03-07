@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.gerenciador.main.domain.dto.UsuarioDTO;
 import com.br.gerenciador.main.domain.entity.Usuario;
-import com.br.gerenciador.main.exception.DomainException;
+import com.br.gerenciador.main.exception.LoginErrorMessage;
 import com.br.gerenciador.main.repository.UsuarioRepository;
 
 @Service
@@ -18,9 +18,9 @@ public class UsuarioService {
 
     public Optional<Usuario> validarLogin(UsuarioDTO usuario) {
         Usuario usuarioEntity = new Usuario(usuario.login(), usuario.senha());
-        if (!repository.buscarPorUsuario(usuarioEntity.getLogin(), usuarioEntity.getSenha()).isPresent()) {
-            throw new DomainException("Usuário ou senha inválidos");
+        if (!repository.findByLoginAndSenha(usuarioEntity.getLogin(), usuarioEntity.getSenha()).isPresent()) {
+            throw new LoginErrorMessage("Login ou senha inválidos!");
         }
-        return repository.buscarPorUsuario(usuario.login(), usuario.senha());
+        return repository.findByLoginAndSenha(usuarioEntity.getLogin(), usuarioEntity.getSenha());
     }
 }
