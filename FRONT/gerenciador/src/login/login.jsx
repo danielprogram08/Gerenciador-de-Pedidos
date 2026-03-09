@@ -6,10 +6,11 @@ import { useState } from 'react'
 
 function Login() {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
 
   const handleLogin = (user) => {
+
     setLoading(true);
 
     const login = user.inputLogin;
@@ -41,16 +42,19 @@ function Login() {
       if (data.success) {
         alert('Login bem-sucedido!');
         setLoading(false);
+        reset();
         // Redirecionar para a página principal ou dashboard
       } else {
         alert('Login ou senha incorretos. Tente novamente.');
         setLoading(false);
+        reset();
       }
     })
     .catch(error => {
       console.error('Erro ao fazer login:', error);
       alert('Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.');
       setLoading(false);
+      reset();
     });
   }
 
