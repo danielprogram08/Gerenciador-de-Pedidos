@@ -38,9 +38,9 @@ public class FiltroSeguranca extends OncePerRequestFilter {
     }
 
     private String recuperarToken(HttpServletRequest req) {
-        var authHeader = req.getHeader("Autorizacao");
-        if (authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
+        var autHeader = req.getHeader("Autorizacao");
+        if (autHeader == null) return null;
+        return autHeader.replace("Bearer ", "");
     }
 
 }

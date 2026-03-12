@@ -11,10 +11,10 @@ import com.br.gerenciador.main.repository.UsuarioRepository;
 public class UsuarioService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository repositorio;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByLogin(username);
+        return repositorio.findByLogin(username);
     }
 }
