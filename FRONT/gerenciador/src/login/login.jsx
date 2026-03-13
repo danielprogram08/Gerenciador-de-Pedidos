@@ -22,7 +22,7 @@ function Login() {
       return;
     }
 
-    fetch('http://localhost:8080/usuarios/login', {
+    fetch('http://localhost:8080/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -31,18 +31,20 @@ function Login() {
       })
     })
     .then(async response => {
-      const text = await response.text();
-      try {
-        return JSON.parse(text);
-      } catch {
-        return { success: response.ok, message: text };
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
       }
+      const data = await response.json();
+      console.log(data);
+      return data;
     })
     .then(data => {
-      if (data.success) {
+      if (data.token || data.success) {
         alert('Login bem-sucedido!');
         setLoading(false);
         reset();
+        console.log(data.token);
+        return data.token;
         // Redirecionar para a página principal ou dashboard
       } else {
         alert('Login ou senha incorretos. Tente novamente.');
