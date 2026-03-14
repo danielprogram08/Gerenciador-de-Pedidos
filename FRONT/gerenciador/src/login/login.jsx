@@ -32,29 +32,25 @@ function Login() {
     })
     .then(async response => {
       if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
+        const error = new Error(`Erro HTTP: ${response.status}`);
+        error.status = response.status;
+        throw error;
       }
       const data = await response.json();
-      console.log(data);
       return data;
     })
     .then(data => {
-      if (data.token || data.success) {
-        alert('Login bem-sucedido!');
-        setLoading(false);
-        reset();
-        console.log(data.token);
-        return data.token;
-        // Redirecionar para a página principal ou dashboard
-      } else {
-        alert('Login ou senha incorretos. Tente novamente.');
-        setLoading(false);
-        reset();
-      }
+      alert('Login bem-sucedido!');
+      setLoading(false);
+      reset();
+      return data.token;
     })
     .catch(error => {
-      console.error('Erro ao fazer login:', error);
-      alert('Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.');
+      if (error.status === 403) {
+        alert("Login ou senha incorretos! Tente novamente.");
+      } else {
+        alert("Erro ao fazer login no sistema. Tente novamente mais tarde.");
+      }
       setLoading(false);
       reset();
     });
