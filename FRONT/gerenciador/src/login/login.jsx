@@ -3,14 +3,15 @@ import SpinnerLoading from '../spinner-loading/spinner.jsx'
 import img from '../../public/Neide.jpg'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = (user) => {
-
     setLoading(true);
 
     const login = user.inputLogin;
@@ -40,16 +41,16 @@ function Login() {
       return data;
     })
     .then(data => {
-      alert('Login bem-sucedido!');
       setLoading(false);
       reset();
-      return data.token;
+      navigate('/home');
     })
     .catch(error => {
       if (error.status === 403) {
         alert("Login ou senha incorretos! Tente novamente.");
       } else {
         alert("Erro ao fazer login no sistema. Tente novamente mais tarde.");
+        console.error(error);
       }
       setLoading(false);
       reset();
