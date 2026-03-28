@@ -9,7 +9,8 @@
                 "projectName": "main",
                 "env": {
                     "DB_USER": "admin",
-                    "DB_PASSWORD": "admin"
+                    "DB_PASSWORD": "admin",
+                    "JWT_SECRET": "my-secret-key"
                 }
             }
         ]

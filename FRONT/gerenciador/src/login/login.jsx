@@ -1,5 +1,5 @@
 import './login.css'
-import SpinnerLoading from '../spinner-loading/spinner.jsx'
+import SpinnerLoading from '../components/spinner-loading/spinner.jsx'
 import img from '../../public/Neide.jpg'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
@@ -60,7 +60,7 @@ function Login() {
   return (
     <>
       <form className='Login-container' onSubmit={handleSubmit(handleLogin)}>
-        <img src={img} alt='Neide' />
+        <img id='logo-lgn' src={img} alt='Neide' />
         <div className='login'>
           <h1>Login</h1>
           <input className='inputLogin' type='text' placeholder='Login:' {...register('inputLogin')}/>

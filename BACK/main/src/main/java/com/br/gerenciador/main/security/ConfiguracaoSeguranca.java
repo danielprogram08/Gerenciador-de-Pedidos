@@ -1,9 +1,13 @@
 package com.br.gerenciador.main.security;
 
+import java.sql.SQLException;
+
 import org.springframework.security.config.Customizer;
+
 import java.util.Arrays;
 import java.util.List;
 
+import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,4 +69,9 @@ public class ConfiguracaoSeguranca {
 	public PasswordEncoder CriptografiaSenha () {
 		return new BCryptPasswordEncoder();	
 	}
+
+	@Bean(initMethod = "start", destroyMethod = "stop")
+    public Server h2Server() throws SQLException {
+        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
+    }
 }
