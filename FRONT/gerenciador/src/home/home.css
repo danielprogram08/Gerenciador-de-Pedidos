@@ -16,6 +16,7 @@
 }
 
 #logo-hm {
+    margin-top: 2%;
     width: 240px;
     height: 140px;
     position: absolute;
@@ -32,4 +33,34 @@ h1 {
     color: #FEDC57;
     width: 40%;
     border-radius: 10px;
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+    margin: 3%;
+    gap: 100px;
+    width: 50%;
+}
+
+.atrasado-transparente, #pendente-transparente, #entregue-entregue {
+    justify-content: center;
+    display: flex;
+    background-color: #ff00003f;
+    color: rgba(255, 255, 255, 0.664);
+    padding: 10px;
+    border-radius: 5px;
+    width: 138px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.atrasado {
+    background-color: #ff0000;
+    color: white;
+    width: 138px;
+    height: 50px
 }

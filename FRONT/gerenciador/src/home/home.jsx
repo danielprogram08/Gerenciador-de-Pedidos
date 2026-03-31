@@ -1,8 +1,9 @@
 import img from "../../public/Neide.jpg"
 import './home.css'
+import { useState } from "react"
 
 function Home() {
-    
+
     const pedidos = [
         {
             id: 1,
@@ -22,6 +23,14 @@ function Home() {
         }
     ]
 
+    const [atrasado, setAtrasado] = useState(false);
+    const [pendente, setPendente] = useState(false);
+    const [entregue, setEntregue] = useState(false);
+
+    const PedidoAtrasado = () => {
+        setAtrasado(!atrasado);
+    }
+
     return (
         <>
             <div className="container">
@@ -30,9 +39,9 @@ function Home() {
                     <h1>Gerenciador de Pedidos</h1>
                 </div>
                 <div className="status">
-                    <div>atrasado</div>
-                    <div>pendente</div>
-                    <div>entregue</div>
+                <button className={atrasado ? "atrasado" : "atrasado-transparente"} onClick={PedidoAtrasado}>Atrasado</button>
+                    <div id="pendente">Pendente</div>
+                    <div id="entregue">Entregue</div>
                 </div>
                 <div className="pedidos">
                     {pedidos.map((pedido) => (
