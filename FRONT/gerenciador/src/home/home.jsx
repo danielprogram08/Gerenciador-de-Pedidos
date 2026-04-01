@@ -1,4 +1,3 @@
-import img from "../../public/Neide.jpg"
 import './home.css'
 import { useState } from "react"
 
@@ -20,6 +19,40 @@ function Home() {
             taxa: 2.00,
             total: 27.00,
             telefone: "85 98648-1992"
+        },
+
+        {
+            id: 2,
+            cliente: "Welber",
+            endereco: "Av. Maciel Bezerra 1490",
+            dataPedido: "24/03/2026-17:31",
+            Pedido: [
+                {
+                    pedido: "Vara de Cano", 
+                    preco: 25.00,
+                    quantidade: 1
+                }
+            ],
+            taxa: 2.00,
+            total: 27.00,
+            telefone: "85 98648-1992"
+        },
+
+        {
+            id: 3,
+            cliente: "Lucineide",
+            endereco: "Av. Maciel Bezerra 1490",
+            dataPedido: "24/03/2026-17:31",
+            Pedido: [
+                {
+                    pedido: "Vara de Cano", 
+                    preco: 25.00,
+                    quantidade: 1
+                }
+            ],
+            taxa: 2.00,
+            total: 27.00,
+            telefone: "85 98648-1992"
         }
     ]
 
@@ -29,32 +62,51 @@ function Home() {
 
     const PedidoAtrasado = () => {
         setAtrasado(!atrasado);
+        setPendente(false);
+        setEntregue(false);
+    }
+
+    const PedidoPendente = () => {
+        setPendente(!pendente);
+        setAtrasado(false);
+        setEntregue(false);
+    }
+
+    const PedidoEntregue = () => {
+        setEntregue(!entregue);
+        setAtrasado(false);
+        setPendente(false);
     }
 
     return (
         <>
             <div className="container">
                 <div className="titulo">
-                    <img id="logo-hm" src={img} alt="alt" />
-                    <h1>Gerenciador de Pedidos</h1>
+                    <img id="logo-hm" src="/Neide.jpg" alt="Logo Neide" />
+                    <h1 id="titulo-h1">Gerenciador de Pedidos</h1>
                 </div>
                 <div className="status">
                 <button className={atrasado ? "atrasado" : "atrasado-transparente"} onClick={PedidoAtrasado}>Atrasado</button>
-                    <div id="pendente">Pendente</div>
-                    <div id="entregue">Entregue</div>
+                    <button className={pendente ? "pendente" : "pendente-transparente"} onClick={PedidoPendente}>Pendente</button>
+                    <button className={entregue ? "entregue" : "entregue-transparente"} onClick={PedidoEntregue}>Entregue</button>
                 </div>
                 <div className="pedidos">
+                    <ul className="titulo-lista">
+                        <div>ID</div>
+                        <div>Cliente</div>
+                        <div>Data do Pedido</div>
+                    </ul>
                     {pedidos.map((pedido) => (
-                        <ul key={pedido.id}>
-                            <li>ID: {pedido.id}</li>
-                            <li>Cliente: {pedido.cliente}</li>
-                            <li>Data do Pedido: {pedido.dataPedido}</li>
+                        <ul key={pedido.id} className="lista">
+                            <div id="pedido-id">{pedido.id}</div>
+                            <div id="pedido-cliente">{pedido.cliente}</div>
+                            <div id="pedido-data">Data do Pedido: {pedido.dataPedido}</div>
                         </ul>
                     ))}
                 </div>
                 <div className="botoes">
                     <button className="addPedido">Adicionar Pedido</button>
-                    <button className="entrergue">Marcar como Entregue</button>
+                    <button className="marcarEntregue">Marcar como Entregue</button>
                 </div>
             </div>
         </>

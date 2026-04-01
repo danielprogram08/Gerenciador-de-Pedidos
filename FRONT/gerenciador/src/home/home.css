@@ -2,28 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
 }
 
 .titulo {
-    margin-top: 2%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     position: relative;
 }
 
 #logo-hm {
-    margin-top: 2%;
-    width: 240px;
-    height: 140px;
+    width: 150px;
+    height: 90px;
     position: absolute;
     left: 10px;
 }
 
-h1 {
+#titulo-h1 {
     font-weight: bold;
     font-size: 40px;
     display: flex;
@@ -31,19 +30,19 @@ h1 {
     justify-content: center;
     background-color: #3b0503d3;
     color: #FEDC57;
-    width: 40%;
+    width: 50%;
+    height: 80px;
     border-radius: 10px;
 }
 
 .status {
     display: flex;
     justify-content: center;
-    margin: 3%;
     gap: 100px;
     width: 50%;
 }
 
-.atrasado-transparente, #pendente-transparente, #entregue-entregue {
+.atrasado-transparente, .pendente-transparente, .entregue-transparente {
     justify-content: center;
     display: flex;
     background-color: #ff00003f;
@@ -58,9 +57,122 @@ h1 {
     cursor: pointer;
 }
 
-.atrasado {
+.pendente-transparente {
+    background-color: #FEDC57;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.534);
+}
+
+.entregue-transparente {
+    background-color: #00ff0081;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.534);
+}
+
+.atrasado, .atrasado:hover, .atrasado-transparente:hover {
     background-color: #ff0000;
     color: white;
+    height: 50px;
     width: 138px;
-    height: 50px
+    font-weight: bold;
+    font-size: 20px;
+    transform: scale(1.1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.pendente, .pendente:hover, .pendente-transparente:hover {
+    background-color: #fbff00;
+    color: black;
+    height: 50px;
+    width: 138px;
+    font-weight: bold;
+    font-size: 20px;
+    transform: scale(1.1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.entregue, .entregue:hover, .entregue-transparente:hover {
+    background-color: #00ff00;
+    color: white;
+    height: 50px;
+    width: 138px;
+    font-weight: bold;
+    font-size: 20px;
+    transform: scale(1.1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.pedidos {
+    padding: 10px;
+    margin-top: 3%;
+    background-color: #3b0503d3;
+    color: #FEDC57;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lista, .titulo-lista {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    background-color: #3b0503ab;
+    color: #FEDC57;
+    border-radius: 5px;
+    border-color: #FEDC57;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out
+}
+
+.titulo-lista {
+    font-weight: bold;
+    border: none;
+    background-color: transparent;
+    cursor: default;
+}
+
+#pedido-id, #pedido-cliente, #pedido-data {
+    font-weight: bold;
+}
+
+.lista:hover {
+    background-color: #3b0503;
+    color: #FEDC57;
+    transform: scale(1.08);
+}
+
+.botoes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20%;
+    width: 50%;
+    margin-top: 2%;
+}
+
+.addPedido, .marcarEntregue {
+    background-color: #065f06;
+    color: white;
+    height: 80px;
+    width: 200px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.addPedido:hover, .marcarEntregue:hover {
+    font-size: 20px;
+    color: white;
+    transform: scale(1.1);
 }

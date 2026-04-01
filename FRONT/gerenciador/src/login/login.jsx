@@ -1,6 +1,5 @@
 import './login.css'
 import SpinnerLoading from '../components/spinner-loading/spinner.jsx'
-import img from '../../public/Neide.jpg'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -58,9 +57,9 @@ function Login() {
   }
 
   return (
-    <>
-      <form className='Login-container' onSubmit={handleSubmit(handleLogin)}>
-        <img id='logo-lgn' src={img} alt='Neide' />
+    <div className="login-container">
+      <form className='Login-form' onSubmit={handleSubmit(handleLogin)}>
+        <img id='logo-lgn' src="/Neide.jpg" alt='Neide' />
         <div className='login'>
           <h1>Login</h1>
           <input className='inputLogin' type='text' placeholder='Login:' {...register('inputLogin')}/>
@@ -74,7 +73,7 @@ function Login() {
           {loading && <SpinnerLoading/>}
         </button>
       </form>
-    </>
+    </div>
   )
 }
 
