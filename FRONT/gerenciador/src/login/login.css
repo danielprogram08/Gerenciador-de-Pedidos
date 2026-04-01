@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 698px;
+    height: 630px;
     width: 749px;
     border: 3px solid black;
 }
@@ -89,4 +89,61 @@ button:hover {
     border: none;
     cursor: pointer;
     transform: scale(1.05);
+}
+
+@media (max-width: 800px) {
+    .Login-form {
+        width: 90%;
+        height: auto;
+        padding: 40px 0;
+    }
+
+    #logo-lgn {
+        width: 90%;
+        height: auto;
+    }
+
+    input, input:hover {
+        width: 85%;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1366px) {
+    .Login-form {
+        width: 600px;
+        padding: 40px 0;
+    }
+
+    #logo-lgn {
+        width: 500px;
+        height: auto;
+    }
+
+    input, input:hover {
+        width: 380px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .Login-form {
+        width: 900px;
+        height: 850px;
+    }
+
+    #logo-lgn {
+        width: 750px;
+        height: auto;
+    }
+
+    input, input:hover {
+        width: 550px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    button, button:hover {
+        width: 300px;
+        height: 90px;
+        font-size: 32px;
+    }
 }

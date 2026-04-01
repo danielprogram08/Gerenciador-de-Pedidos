@@ -80,7 +80,7 @@ function Home() {
 
     return (
         <>
-            <div className="container">
+            <div className="container-fluido">
                 <div className="titulo">
                     <img id="logo-hm" src="/Neide.jpg" alt="Logo Neide" />
                     <h1 id="titulo-h1">Gerenciador de Pedidos</h1>
@@ -105,8 +105,8 @@ function Home() {
                     ))}
                 </div>
                 <div className="botoes">
+                    <button className="sair">Sair</button>
                     <button className="addPedido">Adicionar Pedido</button>
-                    <button className="marcarEntregue">Marcar como Entregue</button>
                 </div>
             </div>
         </>
