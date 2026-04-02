@@ -1,6 +1,7 @@
 import './infoPedido.css';
+import { Fragment } from 'react';
 
-function infoPedido() {
+function InfoPedido() {
 
      const pedidos = [
         {
@@ -10,9 +11,16 @@ function infoPedido() {
             dataPedido: "24/03/2026-17:31",
             Itens: [
                 {
-                    pedido: "Vara de Cano", 
+                    id: 1,
+                    pedido: "Vara de Cano de 50m", 
                     preco: 25.00,
                     quantidade: 1
+                },
+                {
+                    id: 2,
+                    pedido: "Vara de Cano 2", 
+                    preco: 30.00,
+                    quantidade: 2
                 }
             ],
             taxa: 2.00,
@@ -28,35 +36,43 @@ function infoPedido() {
                     <img id='logo-pd' src='/Neide.jpg' alt='Logo Neide' />
                     <h1 id='titulo-pd-h1'>Informações do Pedido</h1>
                 </div>
-                <div className='titulo-itens'>
+                <div className='titulo-pedido-container'>
                     <ul className='titulo-info-pedido'>
-                        <div>ID</div>
-                        <div>Cliente</div>
-                        <div>Endereço</div>
-                        <div>Itens</div>
-                        <div>Data do Pedido</div>
-                        <div>Telefone</div>
+                        <p>Cliente</p>
+                        <p>Endereço</p>
+                        <p>Data do Pedido</p>
+                        <p>Telefone</p>
                     </ul>
                     {pedidos.map((pedido) => (
-                        <ul key={pedido.id} className='info-pedido'>
-                            <div id='id'>{pedido.id}</div>
+                    <Fragment key={pedido.id}>
+                        <ul className='info-pedido'>
                             <div id='cliente'>{pedido.cliente}</div>
                             <div id='endereco'>{pedido.endereco}</div>
-                            {pedido.Itens.map((item) => (
-                                <div key={item.pedido} id='itens'>
-                                    <div id='item'>Item: {item.pedido}</div>
-                                    <div id='preco'>Preço: {item.preco}</div>
-                                    <div id='quantidade'>Quantidade: {item.quantidade}</div>
-                                </div>
-                            ))}
                             <div id='data'>{pedido.dataPedido}</div>
                             <div id='telefone'>{pedido.telefone}</div>
                         </ul>
+                        <div className='titulo-info-itens'>
+                            <p>Itens</p>
+                            <p>Preço</p>
+                            <p>Quantidade</p>
+                        </div>
+                        {pedido.Itens.map((item) => (
+                            <ul key={item.id} className='info-itens'>
+                                <div id='pedido'>{item.pedido}</div>
+                                <div id='preco'>R$ {item.preco.toFixed(2)}</div>
+                                <div id='quantidade'>{item.quantidade}</div>
+                            </ul>
+                        ))}
+                    </Fragment>
                     ))}
+                </div>
+                <div className='botoes'>
+                    <button id='editar'>Editar</button>
+                    <button id='entregue'>Marcar como entregue</button>
                 </div>
             </div>
         </>
     )
 }
 
-export default infoPedido;
+export default InfoPedido;
