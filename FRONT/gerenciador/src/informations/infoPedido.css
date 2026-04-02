@@ -79,13 +79,47 @@
     padding: 10px;
 }
 
+.botoes-opcionais {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+#enviarWhatsapp, #imprimir {
+    width: 50px;
+    height: 50px;
+    background-image: url('../assets/whatsapp-icon.png');
+    background-size: cover;
+    background-position: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#enviarWhatsapp {
+    background-image: url('../assets/whatsapp-icon.png');
+    background-color: #3b0503;
+}
+
+#enviarWhatsapp:hover, #imprimir:hover {
+    background-color: #800b07;
+    transform: scale(1.1);
+}
+
+#imprimir {
+    background-image: url('../assets/print-icon.png');
+    background-color: #3b0503;
+}
+
 .botoes {
     display: flex;
     gap: 100px;
     margin: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-#editar, #entregue {
+.botoes button {
     width: 150px;
     height: 50px;
     font-weight: bold;
@@ -112,4 +146,65 @@
     background-color: darkgreen;
     color: white;
     font-size: 15px;
+}
+
+@media (min-width: 1025px) {
+    .titulo-pedido-container {
+        width: 80%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    #titulo-pd-h1 {
+        font-size: 30px;
+        width: 70%;
+    }
+    #logo-pd {
+        width: 120px;
+        height: auto;
+    }
+    .titulo-info-pedido, .info-pedido, .titulo-info-itens, .info-itens {
+        font-size: 16px;
+    }
+    .botoes {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo-pd {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    #logo-pd {
+        position: static;
+    }
+    #titulo-pd-h1 {
+        font-size: 22px;
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+    .titulo-pedido-container {
+        width: 95%;
+        overflow-x: auto; 
+    }
+    
+    .titulo-info-pedido, .info-pedido, .titulo-info-itens, .info-itens {
+        font-size: 14px;
+        min-width: 600px; 
+    }
+    .botoes {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        width: 100%;
+    }
+    .botoes button {
+        width: 80%;
+        max-width: 300px;
+    }
 }

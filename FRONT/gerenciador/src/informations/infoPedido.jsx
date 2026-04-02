@@ -63,6 +63,10 @@ function InfoPedido() {
                                 <div id='quantidade'>{item.quantidade}</div>
                             </ul>
                         ))}
+                        <div className='botoes-opcionais'>
+                            <button id='enviarWhatsapp'></button>
+                            <button id='imprimir'></button>
+                        </div>
                     </Fragment>
                     ))}
                 </div>
