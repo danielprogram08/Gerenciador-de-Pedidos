@@ -1,5 +1,6 @@
 import './infoPedido.css';
 import { Fragment } from 'react';
+import { FaWhatsapp, FaPrint } from 'react-icons/fa';
 
 function InfoPedido() {
 
@@ -64,8 +65,12 @@ function InfoPedido() {
                             </ul>
                         ))}
                         <div className='botoes-opcionais'>
-                            <button id='enviarWhatsapp'></button>
-                            <button id='imprimir'></button>
+                            <button id='enviarWhatsapp'>
+                                <FaWhatsapp id='icone-whatsapp' />
+                            </button>
+                            <button id='imprimir'>
+                                <FaPrint id='icone-imprimir' />
+                            </button>
                         </div>
                     </Fragment>
                     ))}
