@@ -1,13 +1,33 @@
 import './AddEdit.css';
 import { useForm } from 'react-hook-form';
-import { FaPlus } from 'react-icons/fa';
+import { CgAdd } from "react-icons/cg";
+import { useState } from 'react';
 
 function AddEdit() {
 
     const { register, handleSubmit, reset } = useForm();
+    const [Pedido, setPedido] = useState([]);
+    const [itens, setItens] = useState([]);
 
     const cadastrarPedido = (pedido) => {
-        console.log(pedido);
+        const novoPedido = {
+            nome: pedido.inputNome,
+            endereco: pedido.inputEndereco,
+            telefone: pedido.inputTelefone,
+            item: [
+                {
+                    produto: pedido.inputProduto,
+                    quantidade: pedido.inputQuantidade,
+                    preco: pedido.inputValor
+                }
+            ],
+            quantidade: pedido.inputQuantidade,
+            valor: pedido.inputValor
+        }
+        setItens([...itens, novoPedido]);
+        setPedido([...Pedido, novoPedido]);
+
+        console.log(Pedido);
         reset();
     }
     
@@ -22,23 +42,31 @@ function AddEdit() {
                             <input type="text" id="inputNome" placeholder='Nome do Cliente:' {...register('inputNome')} />
                             <label htmlFor="inputEndereco">Endereço de Entrega:</label>
                             <input type="text" id="inputEndereco" placeholder='Endereço de Entrega:' {...register('inputEndereco')} />
+                            <label htmlFor="inputTelefone">Telefone:</label>
+                            <input type="text" id="inputTelefone" placeholder='Telefone:' {...register('inputTelefone')} />
                         </div>
                         <div className='dados-pedido'>
                             <label htmlFor="inputProduto">Produto:</label>
                             <input type="text" id="inputProduto" placeholder='Item:' {...register('inputProduto')} />
                             <label htmlFor="inputQuantidade">Quantidade:</label>
                             <input type="number" id="inputQuantidade" placeholder='Quantidade do item:' {...register('inputQuantidade')} />
+                            <label htmlFor="inputValor">Valor:</label>
+                            <input type="number" id="inputValor" placeholder='Valor do item:' {...register('inputValor')} />
                         </div>
                         <button type="button" className='btn-adicionar'>
-                            <FaPlus />
+                            <CgAdd/>
                             Adicionar Item
                         </button>
                     </form>
                     <div className='lista-itens'>
                     <h2>Lista de Itens</h2>
-                        <ul>
-                            
-                        </ul>
+                        {itens.map((item, index) => (
+                            <ul key={index}>
+                                <li>Produto: {item.produto}</li>
+                                <li>Quantidade: {item.quantidade}</li>
+                                <li>Valor: R$ {item.valor}</li>
+                            </ul>
+                        ))}
                     </div>
                 </div>
                 <div className='botoes-editaveis'>

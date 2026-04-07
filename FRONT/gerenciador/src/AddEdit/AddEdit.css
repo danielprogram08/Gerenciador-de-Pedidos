@@ -103,6 +103,11 @@ label {
     background-color: brown;
 }
 
+.btn-adicionar i,
+.btn-adicionar svg {
+    font-size: 30px;
+}
+
 .lista-itens {
     background-color: #FEDC57;
     color: #3b0503d3;

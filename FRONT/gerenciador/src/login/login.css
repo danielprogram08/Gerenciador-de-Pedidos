@@ -52,7 +52,7 @@ input:hover {
     font-weight: bold;
     font-size: x-large;
     padding-left: 20px;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 input::placeholder {
