@@ -1,0 +1,265 @@
+.addEdit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 2rem;
+}
+
+.container-divisor {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    width: 80%;
+}
+
+.addEdit-titulo {
+    font-weight: bold;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3b0503d3;
+    color: #FEDC57;
+    width: 80%;
+    height: 80px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.addEdit-formulario {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-around;
+    width: 70%;
+    gap: 20px;
+    padding: 20px;
+    background-color: #3b0503d3;
+    color: #FEDC57;
+    border-radius: 10px;
+}
+
+.dados-cliente, .dados-pedido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+input:hover {
+    transform: scale(1.0);
+    width: 100%;
+    box-shadow: 0 0 8px rgba(254, 220, 87, 0.5);
+}
+
+label {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+
+.btn-adicionar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #ac0f0ad3;
+    color: white;
+    height: 50px;
+    width: 150px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    align-self: center;
+    margin-top: auto;
+}
+
+.btn-adicionar:hover {
+    color: white;
+    transform: scale(1.1);
+    font-size: 15px;
+    background-color: brown;
+}
+
+.lista-itens {
+    background-color: #FEDC57;
+    color: #3b0503d3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.botoes-editaveis {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 80%;
+}
+
+#btn-cancelar {
+    background-color: #ff0000;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+#btn-cancelar:hover {
+    color: white;
+    background-color: #ff4646;
+    transform: scale(1.1);
+}
+
+#btn-salvar {
+    background-color: #065f06;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+#btn-salvar:hover {
+    color: white;
+    background-color: #088008;
+    transform: scale(1.1);
+}
+
+@media (max-width: 800px) {
+    .addEdit-container {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .addEdit-titulo {
+        width: 90%;
+        font-size: 24px;
+        height: auto;
+        padding: 15px;
+    }
+
+    .container-divisor {
+        flex-direction: column;
+        width: 90%;
+        gap: 15px;
+    }
+
+    .addEdit-formulario {
+        flex-direction: column;
+        width: 100%;
+        padding: 15px;
+        gap: 15px;
+        box-sizing: border-box;
+    }
+
+    .dados-cliente, .dados-pedido {
+        width: 100%;
+        gap: 15px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .btn-adicionar {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .lista-itens {
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        box-sizing: border-box;
+    }
+
+    .botoes-editaveis {
+        flex-direction: column;
+        width: 90%;
+        gap: 15px;
+    }
+
+    #btn-cancelar, #btn-salvar {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1366px) {
+    .addEdit-titulo {
+        width: 90%;
+        font-size: 32px;
+    }
+
+    .container-divisor {
+        width: 90%;
+    }
+
+    .addEdit-formulario {
+        width: 65%;
+        flex-direction: column;
+    }
+
+    .dados-cliente, .dados-pedido {
+        align-items: center;
+    }
+    
+    input {
+        width: 100%;
+    }
+
+    .lista-itens {
+        width: 35%;
+    }
+}
+
+@media (min-width: 1920px) {
+    .addEdit-titulo {
+        width: 50%;
+        font-size: 50px;
+        height: 100px;
+    }
+
+    .container-divisor {
+        width: 50%;
+    }
+}

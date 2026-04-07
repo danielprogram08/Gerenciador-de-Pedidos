@@ -20,6 +20,12 @@
     height: 90px;
     position: absolute;
     left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#logo-pd:hover {
+    transform: scale(1.1);
 }
 
 #titulo-pd-h1 {
@@ -103,7 +109,7 @@
 #icone-whatsapp, #icone-imprimir {
     width: 30px;
     height: 30px;
-    color:#FEDC57;
+    color: white;
 }
 
 #enviarWhatsapp:hover, #imprimir:hover {

@@ -1,5 +1,6 @@
 import './home.css'
 import { useState } from "react"
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 function Home() {
 
@@ -101,6 +102,10 @@ function Home() {
                             <div id="pedido-id">{pedido.id}</div>
                             <div id="pedido-cliente">{pedido.cliente}</div>
                             <div id="pedido-data">Data do Pedido: {pedido.dataPedido}</div>
+                            <div className="botoes-editaveis">
+                                <FaEdit id='edit-icon'></FaEdit>
+                                <FaTrashAlt id='trash-icon'></FaTrashAlt>
+                            </div>
                         </ul>
                     ))}
                 </div>

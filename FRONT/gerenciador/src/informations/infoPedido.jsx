@@ -1,6 +1,7 @@
 import './infoPedido.css';
 import { Fragment } from 'react';
 import { FaWhatsapp, FaPrint } from 'react-icons/fa';
+import { Navigate, useNavigate } from 'react-router-dom'
 
 function InfoPedido() {
 
@@ -29,12 +30,15 @@ function InfoPedido() {
             telefone: "85 98648-1992"
         }
     ]
+
+    const Navigate = useNavigate();
+    const homepage = () => { Navigate('/home'); }
     
     return (
         <>
             <div className='container-info-pedido'>
                 <div className='titulo-pd'>
-                    <img id='logo-pd' src='/Neide.jpg' alt='Logo Neide' />
+                    <img id='logo-pd' src='/Neide.jpg' alt='Logo Neide' onClick={homepage} />
                     <h1 id='titulo-pd-h1'>Informações do Pedido</h1>
                 </div>
                 <div className='titulo-pedido-container'>

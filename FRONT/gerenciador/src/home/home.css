@@ -117,7 +117,8 @@
 
 .lista, .titulo-lista {
     display: grid;
-    grid-template-columns: 0fr 1fr 1fr;
+    grid-template-columns: auto 1fr 1fr 0.5fr;
+    gap: 10px;
     align-items: center;
     text-align: center;
     padding: 10px;
@@ -143,17 +144,34 @@
     font-weight: bold;
 }
 
+#edit-icon, #trash-icon {
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.botoes-editaveis {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-icon:hover, #trash-icon:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
 .lista:hover {
     background-color: #3b0503;
     color: #FEDC57;
-    transform: scale(1.08);
+    transform: scale(1.02);
 }
 
 .botoes {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20%;
+    gap: 2rem;
     width: 50%;
 }
 
@@ -223,8 +241,17 @@
 
     .lista, .titulo-lista {
         font-size: 14px;
-        grid-template-columns: auto 1fr 1fr; 
+        grid-template-columns: auto 1fr 1fr auto; 
         padding: 5px;
+        gap: 5px;
+    }
+
+    .botoes-editaveis {
+        gap: 10px;
+    }
+
+    #edit-icon, #trash-icon {
+        font-size: 16px;
     }
 }
 
