@@ -16,17 +16,18 @@ function InfoPedido() {
                     id: 1,
                     pedido: "Vara de Cano de 50m", 
                     preco: 25.00,
-                    quantidade: 1
+                    quantidade: 1,
+                    total: 25.00
                 },
                 {
                     id: 2,
                     pedido: "Vara de Cano 2", 
                     preco: 30.00,
-                    quantidade: 2
+                    quantidade: 2,
+                    total: 60.00
                 }
             ],
             taxa: 2.00,
-            total: 27.00,
             telefone: "85 98648-1992"
         }
     ]
@@ -58,13 +59,13 @@ function InfoPedido() {
                         </ul>
                         <div className='titulo-info-itens'>
                             <p>Itens</p>
-                            <p>Preço</p>
+                            <p>Valor Total</p>
                             <p>Quantidade</p>
                         </div>
                         {pedido.Itens.map((item) => (
                             <ul key={item.id} className='info-itens'>
                                 <div id='pedido'>{item.pedido}</div>
-                                <div id='preco'>R$ {item.preco.toFixed(2)}</div>
+                                <div id='preco'>R$ {item.total.toFixed(2)}</div>
                                 <div id='quantidade'>{item.quantidade}</div>
                             </ul>
                         ))}

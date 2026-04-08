@@ -13,7 +13,8 @@ function AddEdit() {
         const novoItem = {
             produto: getValues('inputProduto'),
             quantidade: getValues('inputQuantidade'),
-            valor: getValues('inputValor'),
+            valor: parseFloat(getValues('inputValor')),
+            total: getValues('inputValor'),
             total: getValues('inputQuantidade') * getValues('inputValor')
         }
 
@@ -74,8 +75,8 @@ function AddEdit() {
                             <ul key={index}>
                                 <li>Produto: {item.produto}</li>
                                 <li>Quantidade: {item.quantidade}</li>
-                                <li>Valor: R$ {item.valor}</li>
-                                <li>Total: R$ {item.total}</li>
+                                <li>Valor: R$ {item.valor.toFixed(2)}</li>
+                                <li>Total: R$ {item.total.toFixed(2)}</li>
                             </ul>
                         ))}
                     </div>

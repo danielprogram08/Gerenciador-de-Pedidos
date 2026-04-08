@@ -11,7 +11,7 @@
 .container-divisor {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
     justify-content: center;
     gap: 20px;
     width: 80%;
@@ -118,6 +118,7 @@ label {
     border-radius: 10px;
     padding: 20px;
     overflow-y: auto;
+    max-height: 450px;
 }
 
 h2 {
