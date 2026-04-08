@@ -5,27 +5,37 @@ import { useState } from 'react';
 
 function AddEdit() {
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, resetField, getValues } = useForm();
     const [Pedido, setPedido] = useState([]);
     const [itens, setItens] = useState([]);
+
+    const addItem = () => {
+        const novoItem = {
+            produto: getValues('inputProduto'),
+            quantidade: getValues('inputQuantidade'),
+            valor: getValues('inputValor'),
+            total: getValues('inputQuantidade') * getValues('inputValor')
+        }
+
+        if (novoItem.produto === '' || novoItem.quantidade === '' || novoItem.valor === '') { alert("Preencha todos os campos!"); return; }
+
+        setItens([...itens, novoItem]);
+        resetField('inputProduto');
+        resetField('inputQuantidade');
+        resetField('inputValor');
+    }
 
     const cadastrarPedido = (pedido) => {
         const novoPedido = {
             nome: pedido.inputNome,
             endereco: pedido.inputEndereco,
             telefone: pedido.inputTelefone,
-            item: [
-                {
-                    produto: pedido.inputProduto,
-                    quantidade: pedido.inputQuantidade,
-                    preco: pedido.inputValor
-                }
-            ],
-            quantidade: pedido.inputQuantidade,
-            valor: pedido.inputValor
+            itens: itens,
+            total: itens.reduce((total, item) => total + item.total, 0)
         }
-        setItens([...itens, novoPedido]);
         setPedido([...Pedido, novoPedido]);
+        
+        if (novoPedido.itens.length === 0 || novoPedido.nome === '' || novoPedido.endereco === '' || novoPedido.telefone === '') { alert("Preencha todos os campos!"); }
 
         console.log(Pedido);
         reset();
@@ -53,7 +63,7 @@ function AddEdit() {
                             <label htmlFor="inputValor">Valor:</label>
                             <input type="number" id="inputValor" placeholder='Valor do item:' {...register('inputValor')} />
                         </div>
-                        <button type="button" className='btn-adicionar'>
+                        <button type="button" className='btn-adicionar' onClick={addItem}>
                             <CgAdd/>
                             Adicionar Item
                         </button>
@@ -65,6 +75,7 @@ function AddEdit() {
                                 <li>Produto: {item.produto}</li>
                                 <li>Quantidade: {item.quantidade}</li>
                                 <li>Valor: R$ {item.valor}</li>
+                                <li>Total: R$ {item.total}</li>
                             </ul>
                         ))}
                     </div>

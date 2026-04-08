@@ -10,7 +10,7 @@ function Home() {
             cliente: "Daniel",
             endereco: "Av. Maciel Bezerra 1490",
             dataPedido: "24/03/2026-17:31",
-            Pedido: [
+            Item: [
                 {
                     pedido: "Vara de Cano", 
                     preco: 25.00,
