@@ -1,8 +1,11 @@
 import './home.css'
 import { useState } from "react"
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+
+    const Navigate = useNavigate();
 
     const pedidos = [
         {
@@ -11,40 +14,6 @@ function Home() {
             endereco: "Av. Maciel Bezerra 1490",
             dataPedido: "24/03/2026-17:31",
             Item: [
-                {
-                    pedido: "Vara de Cano", 
-                    preco: 25.00,
-                    quantidade: 1
-                }
-            ],
-            taxa: 2.00,
-            total: 27.00,
-            telefone: "85 98648-1992"
-        },
-
-        {
-            id: 2,
-            cliente: "Welber",
-            endereco: "Av. Maciel Bezerra 1490",
-            dataPedido: "24/03/2026-17:31",
-            Pedido: [
-                {
-                    pedido: "Vara de Cano", 
-                    preco: 25.00,
-                    quantidade: 1
-                }
-            ],
-            taxa: 2.00,
-            total: 27.00,
-            telefone: "85 98648-1992"
-        },
-
-        {
-            id: 3,
-            cliente: "Lucineide",
-            endereco: "Av. Maciel Bezerra 1490",
-            dataPedido: "24/03/2026-17:31",
-            Pedido: [
                 {
                     pedido: "Vara de Cano", 
                     preco: 25.00,
@@ -79,6 +48,15 @@ function Home() {
         setPendente(false);
     }
 
+    const sair = () => { Navigate('/'); }
+    const addPedido = () => { Navigate('/addEdit'); }
+    const infoPedido = () => { Navigate('/infoPedido'); }
+
+    /*const infoPedido = async () => {
+        const dataPedido = await api.get('/infoPedido'); 
+        Navigate('/infoPedido', { state: dataPedido }); 
+    }*/
+
     return (
         <>
             <div className="container-fluido">
@@ -98,20 +76,17 @@ function Home() {
                         <div>Data do Pedido</div>
                     </ul>
                     {pedidos.map((pedido) => (
-                        <ul key={pedido.id} className="lista">
+                        <ul key={pedido.id} className="lista" onClick={infoPedido}>
                             <div id="pedido-id">{pedido.id}</div>
                             <div id="pedido-cliente">{pedido.cliente}</div>
                             <div id="pedido-data">Data do Pedido: {pedido.dataPedido}</div>
-                            <div className="botoes-editaveis">
-                                <FaEdit id='edit-icon'></FaEdit>
-                                <FaTrashAlt id='trash-icon'></FaTrashAlt>
-                            </div>
+                            <FaTrashAlt id='trash-icon'></FaTrashAlt>
                         </ul>
                     ))}
                 </div>
                 <div className="botoes">
-                    <button className="sair">Sair</button>
-                    <button className="addPedido">Adicionar Pedido</button>
+                    <button className="sair" onClick={sair}>Sair</button>
+                    <button className="addPedido" onClick={addPedido}>Adicionar Pedido</button>
                 </div>
             </div>
         </>

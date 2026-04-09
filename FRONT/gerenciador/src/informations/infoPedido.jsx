@@ -1,7 +1,8 @@
 import './infoPedido.css';
 import { Fragment } from 'react';
 import { FaWhatsapp, FaPrint } from 'react-icons/fa';
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom';
 
 function InfoPedido() {
 
@@ -31,6 +32,9 @@ function InfoPedido() {
             telefone: "85 98648-1992"
         }
     ]
+
+    /*const location = useLocation();
+    const Pedidos = location.state;*/
 
     const Navigate = useNavigate();
     const homepage = () => { Navigate('/home'); }

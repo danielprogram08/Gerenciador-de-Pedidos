@@ -117,7 +117,8 @@
 
 .lista, .titulo-lista {
     display: grid;
-    grid-template-columns: auto 1fr 1fr 0.5fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    align-items: center;
     gap: 10px;
     align-items: center;
     text-align: center;
@@ -144,19 +145,13 @@
     font-weight: bold;
 }
 
-#edit-icon, #trash-icon {
+#trash-icon {
     color: white;
     transition: all 0.3s ease-in-out;
+    margin: auto;
 }
 
-.botoes-editaveis {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-#edit-icon:hover, #trash-icon:hover {
+#trash-icon:hover {
     color: white;
     transform: scale(1.2);
 }
@@ -241,16 +236,12 @@
 
     .lista, .titulo-lista {
         font-size: 14px;
-        grid-template-columns: auto 1fr 1fr auto; 
+        grid-template-columns: 1fr 2fr 2fr 1fr; 
         padding: 5px;
         gap: 5px;
     }
 
-    .botoes-editaveis {
-        gap: 10px;
-    }
-
-    #edit-icon, #trash-icon {
+    #trash-icon {
         font-size: 16px;
     }
 }
