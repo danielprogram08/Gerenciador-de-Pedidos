@@ -38,6 +38,7 @@ function InfoPedido() {
 
     const Navigate = useNavigate();
     const homepage = () => { Navigate('/home'); }
+    const editProdut = () => { Navigate('/addEdit'); }
     
     return (
         <>
@@ -85,7 +86,7 @@ function InfoPedido() {
                     ))}
                 </div>
                 <div className='botoes'>
-                    <button id='editar'>Editar</button>
+                    <button id='editar' onClick={editProdut}>Editar</button>
                     <button id='entregue'>Marcar como entregue</button>
                 </div>
             </div>

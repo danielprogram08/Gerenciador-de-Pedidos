@@ -41,7 +41,10 @@ public class ConfiguracaoSeguranca {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-						//.requestMatchers(HttpMethod.POST, "/orders").hasRole("ADMIN")
+						// .requestMatchers(HttpMethod.POST, "/orders").hasRole("ADMIN")
+						// .requestMatchers(HttpMethod.GET, "/orders").hasRole("ADMIN")
+						// .requestMatchers(HttpMethod.PUT, "/orders").hasRole("ADMIN")
+						// .requestMatchers(HttpMethod.DELETE, "/orders").hasRole("ADMIN")
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class)
