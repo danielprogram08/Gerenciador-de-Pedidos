@@ -33,7 +33,7 @@ public class Pedido {
     private String cliente;
     private String endereco;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataPedido;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -41,4 +41,18 @@ public class Pedido {
     
     private String telefone;
     private String status;
+
+    public Pedido(Long id, String cliente, LocalDateTime dataPedido, String status) {
+        this.id = id;
+        this.cliente = cliente;
+        this.dataPedido = dataPedido;
+        this.status = status;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+        if (itens != null) {
+            itens.forEach(item -> item.setPedido(this));
+        }
+    }
 }
