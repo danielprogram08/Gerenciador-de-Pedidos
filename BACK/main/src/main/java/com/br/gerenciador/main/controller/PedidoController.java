@@ -22,9 +22,9 @@ public class PedidoController {
     private PedidoService service;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<PedidoDTO> cadastrar(@RequestBody PedidoDTO data) {
-        var pedido = service.cadastrarPedido(data);
-        return ResponseEntity.ok(pedido);
+    public ResponseEntity<String> cadastrar(@RequestBody PedidoDTO data) {
+        service.cadastrarPedido(data);
+        return ResponseEntity.ok("Pedido cadastrado com sucesso!");
     }
 
     @GetMapping("/listar")

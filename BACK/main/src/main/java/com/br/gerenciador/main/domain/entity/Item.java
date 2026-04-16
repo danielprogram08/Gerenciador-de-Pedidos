@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -36,4 +38,19 @@ public class Item {
     @JoinColumn(name = "pedido_id")
     @JsonIgnore
     private Pedido pedido;
+
+    public Item(String nome, Double preco, Integer quantidade, Double taxa) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.taxa = taxa;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void calcularTotal() {
+        if (this.preco != null && this.quantidade != null) {
+            this.total = (this.preco * this.quantidade) + this.taxa;
+        }
+    }
 }

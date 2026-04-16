@@ -29,7 +29,6 @@ public class PedidoService {
             item.setPreco(itemDTO.preco());
             item.setQuantidade(itemDTO.quantidade());
             item.setTaxa(itemDTO.taxa());
-            item.setTotal(itemDTO.total());
             return item;
         }).collect(Collectors.toList());
         
