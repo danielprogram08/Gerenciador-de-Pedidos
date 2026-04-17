@@ -1,8 +1,7 @@
 package com.br.gerenciador.main.security;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.br.gerenciador.main.domain.entity.Usuario;
 
 @Service
@@ -40,12 +40,12 @@ public class ServicoToken {
                 .build()
                 .verify(token)
                 .getSubject();
-        } catch (JWTCreationException exception) {
+        } catch (JWTVerificationException exception) {
             throw new RuntimeException("Token inválido ou expirado.", exception);
         }
     }
 
     private Instant gerarDataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return Instant.now().plus(2, ChronoUnit.HOURS);
     }
 }

@@ -28,18 +28,40 @@ function AddEdit() {
 
     const cadastrarPedido = (pedido) => {
         const novoPedido = {
-            nome: pedido.inputNome,
+            cliente: pedido.inputNome,
             endereco: pedido.inputEndereco,
             telefone: pedido.inputTelefone,
             itens: itens,
-            total: itens.reduce((total, item) => total + item.total, 0)
+            dataPedido: new Date().toISOString().substring(0, 19),
+            status: "pendente"
         }
-        setPedido([...Pedido, novoPedido]);
         
-        if (novoPedido.itens.length === 0 || novoPedido.nome === '' || novoPedido.endereco === '' || novoPedido.telefone === '') { alert("Preencha todos os campos!"); }
+        if (novoPedido.itens.length === 0 || novoPedido.cliente === '' || novoPedido.endereco === '' || novoPedido.telefone === '') { 
+            alert("Preencha todos os campos!"); 
+            return;
+        }
 
-        console.log(Pedido);
-        reset();
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/pedidos/cadastrar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(novoPedido)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Pedido cadastrado com sucesso!");
+                setPedido([...Pedido, novoPedido]);
+                reset();
+                setItens([]);
+            } else {
+                alert("Sessão expirada ou sem permissão. Faça login novamente.");
+            }
+        })
+        .catch(error => console.error("Erro ao salvar pedido:", error));
     }
     
     return (

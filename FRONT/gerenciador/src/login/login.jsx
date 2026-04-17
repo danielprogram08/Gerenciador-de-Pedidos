@@ -40,6 +40,9 @@ function Login() {
       return data;
     })
     .then(data => {
+      
+      localStorage.setItem('token', data.token);
+      
       setLoading(false);
       reset();
       navigate('/home');
