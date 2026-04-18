@@ -2,7 +2,7 @@ package com.br.gerenciador.main.domain.entity;
 
 public enum UsuarioADM {
 
-    ADMIN("admin");
+    ADMIN("ADMIN");
 
     private String perfil;
 
