@@ -2,44 +2,21 @@ import './infoPedido.css';
 import { Fragment } from 'react';
 import { FaWhatsapp, FaPrint } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function InfoPedido() {
 
-     const pedidos = [
-        {
-            id: 1,
-            cliente: "Daniel",
-            endereco: "Av. Maciel Bezerra 1490",
-            dataPedido: "24/03/2026-17:31",
-            Itens: [
-                {
-                    id: 1,
-                    pedido: "Vara de Cano de 50m", 
-                    preco: 25.00,
-                    quantidade: 1,
-                    total: 25.00
-                },
-                {
-                    id: 2,
-                    pedido: "Vara de Cano 2", 
-                    preco: 30.00,
-                    quantidade: 2,
-                    total: 60.00
-                }
-            ],
-            taxa: 2.00,
-            telefone: "85 98648-1992"
-        }
-    ]
-
-    /*const location = useLocation();
-    const Pedidos = location.state;*/
+    const location = useLocation();
+    const pedido = location.state;
 
     const Navigate = useNavigate();
     const homepage = () => { Navigate('/home'); }
     const editProdut = () => { Navigate('/addEdit'); }
     
+    if (!pedido) {
+        return <div className="container-info-pedido"><h2>Pedido não encontrado.</h2><button onClick={homepage}>Voltar</button></div>;
+    }
+
     return (
         <>
             <div className='container-info-pedido'>
@@ -54,8 +31,7 @@ function InfoPedido() {
                         <p>Data do Pedido</p>
                         <p>Telefone</p>
                     </ul>
-                    {pedidos.map((pedido) => (
-                    <Fragment key={pedido.id}>
+                    <Fragment>
                         <ul className='info-pedido'>
                             <div id='cliente'>{pedido.cliente}</div>
                             <div id='endereco'>{pedido.endereco}</div>
@@ -67,10 +43,10 @@ function InfoPedido() {
                             <p>Valor Total</p>
                             <p>Quantidade</p>
                         </div>
-                        {pedido.Itens.map((item) => (
-                            <ul key={item.id} className='info-itens'>
-                                <div id='pedido'>{item.pedido}</div>
-                                <div id='preco'>R$ {item.total.toFixed(2)}</div>
+                        {pedido.itens && pedido.itens.map((item, index) => (
+                            <ul key={item.id || index} className='info-itens'>
+                                <div id='pedido'>{item.nome || item.produto}</div>
+                                <div id='preco'>R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</div>
                                 <div id='quantidade'>{item.quantidade}</div>
                             </ul>
                         ))}
@@ -83,7 +59,6 @@ function InfoPedido() {
                             </button>
                         </div>
                     </Fragment>
-                    ))}
                 </div>
                 <div className='botoes'>
                     <button id='editar' onClick={editProdut}>Editar</button>

@@ -1,30 +1,40 @@
 import './home.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
     const Navigate = useNavigate();
+    const [pedidos, setPedidos] = useState([]);
 
-    const pedidos = [
-        {
-            id: 1,
-            cliente: "Daniel",
-            endereco: "Av. Maciel Bezerra 1490",
-            dataPedido: "24/03/2026-17:31",
-            Item: [
-                {
-                    pedido: "Vara de Cano", 
-                    preco: 25.00,
-                    quantidade: 1
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/pedidos/projection', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(async response => {
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    alert("Sessão expirada. Faça login novamente.");
+                    Navigate('/');
                 }
-            ],
-            taxa: 2.00,
-            total: 27.00,
-            telefone: "85 98648-1992"
-        }
-    ]
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return await response.json();
+        })
+        .then(data => {
+            setPedidos(data);
+        })
+        .catch(error => {
+            console.error("Erro ao carregar dados:", error);
+        });
+    }, [Navigate]);
 
     const [atrasado, setAtrasado] = useState(false);
     const [pendente, setPendente] = useState(false);
@@ -50,12 +60,60 @@ function Home() {
 
     const sair = () => { Navigate('/'); }
     const addPedido = () => { Navigate('/addEdit'); }
-    const infoPedido = () => { Navigate('/infoPedido'); }
+    
+    const infoPedido = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            
+            const response = await fetch(`http://localhost:8080/pedidos/listar?id=${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-    /*const infoPedido = async () => {
-        const dataPedido = await api.get('/infoPedido'); 
-        Navigate('/infoPedido', { state: dataPedido }); 
-    }*/
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+
+            const dataPedido = await response.json();
+            Navigate('/infoPedido', { state: dataPedido }); 
+
+        } catch (error) {
+            console.error("Erro ao buscar os detalhes do pedido:", error);
+            alert("Não foi possível carregar os dados deste pedido.");
+        }
+    }
+
+    const deletePedido = async (id) => {
+        if (!window.confirm("Deseja realmente excluir este pedido?")) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            
+            const response = await fetch(`http://localhost:8080/pedidos/excluir?id=${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+
+            setPedidos(pedidos.filter(pedido => pedido.id !== id));
+
+        } catch (error) {
+            console.error("Erro ao excluir o pedido:", error);
+            alert("Não foi possível excluir o pedido.");
+        }
+    }
+
+    const pedidosFiltrados = pedidos.filter(pedido => {
+        if (atrasado) return pedido.status?.toLowerCase() === 'atrasado';
+        if (pendente) return pedido.status?.toLowerCase() === 'pendente';
+        if (entregue) return pedido.status?.toLowerCase() === 'entregue';
+        return true;
+    });
 
     return (
         <>
@@ -75,12 +133,15 @@ function Home() {
                         <div>Cliente</div>
                         <div>Data do Pedido</div>
                     </ul>
-                    {pedidos.map((pedido) => (
-                        <ul key={pedido.id} className="lista" onClick={infoPedido}>
+                    {pedidosFiltrados.map((pedido) => (
+                        <ul key={pedido.id} className="lista" onClick={() => infoPedido(pedido.id)}>
                             <div id="pedido-id">{pedido.id}</div>
                             <div id="pedido-cliente">{pedido.cliente}</div>
                             <div id="pedido-data">Data do Pedido: {pedido.dataPedido}</div>
-                            <FaTrashAlt id='trash-icon'></FaTrashAlt>
+                            <FaTrashAlt id='trash-icon' onClick={(e) => {
+                                e.stopPropagation();
+                                deletePedido(pedido.id);
+                            }}></FaTrashAlt>
                         </ul>
                     ))}
                 </div>
