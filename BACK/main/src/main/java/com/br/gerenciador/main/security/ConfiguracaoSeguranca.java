@@ -46,6 +46,7 @@ public class ConfiguracaoSeguranca {
 						.requestMatchers(HttpMethod.GET, "/pedidos/projection").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.POST, "/pedidos/atualizar").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/pedidos/excluir").hasAuthority("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/pedidos/atualizarStatus").hasAuthority("ADMIN")
 						.requestMatchers("/error").permitAll()
 						.anyRequest().authenticated()
 				)

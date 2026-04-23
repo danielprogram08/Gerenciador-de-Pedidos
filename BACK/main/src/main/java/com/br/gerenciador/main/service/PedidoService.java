@@ -92,4 +92,30 @@ public class PedidoService {
     public void excluirPedido(Long id) {
         repository.deleteById(id);
     }
+
+    @Transactional
+    public PedidoDTO atualizarStatus(Long id, String novoStatus) {
+        Optional<Pedido> pedidoOptional = repository.findById(id);
+        pedidoOptional.ifPresent(pedido -> {
+            pedido.setStatus(novoStatus);
+            repository.save(pedido);
+        });
+        return pedidoOptional.map(pedido -> new PedidoDTO(
+            pedido.getId(),
+            pedido.getCliente(),
+            pedido.getEndereco(),
+            pedido.getDataPedido(),
+            pedido.getItens().stream()
+                .map(item -> new com.br.gerenciador.main.domain.dto.ItemDTO(
+                    item.getId(),
+                    item.getNome(),
+                    item.getPreco(),
+                    item.getQuantidade(),
+                    item.getTaxa()
+                ))
+                .collect(Collectors.toList()),
+            pedido.getTelefone(),
+            pedido.getStatus()
+        )).orElse(null);
+    }
 }

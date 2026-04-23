@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,10 +44,16 @@ public class PedidoController {
         return ResponseEntity.ok(pedidos);
     }
 
-    @PostMapping("/atualizar")
+    @PutMapping("/atualizar")
     public ResponseEntity<String> atualizar(@RequestBody PedidoDTO data) {
         service.atualizarPedido(data.id(), data);
         return ResponseEntity.ok("Pedido atualizado com sucesso!");
+    }
+
+    @PutMapping("/atualizarStatus")
+    public ResponseEntity<String> atualizarStatus(@RequestParam Long id, @RequestParam String novoStatus) {
+        service.atualizarStatus(id, novoStatus);
+        return ResponseEntity.ok("Status do pedido atualizado com sucesso!");
     }
 
     @DeleteMapping("/excluir")

@@ -29,7 +29,26 @@ function Home() {
             return await response.json();
         })
         .then(data => {
-            setPedidos(data);
+            const agora = new Date();
+            const pedidosAtualizados = data.map(pedido => {
+                const dataDoPedido = new Date(pedido.dataPedido);
+                const horasPassadas = (agora - dataDoPedido) / (1000 * 60 * 60);
+
+                if (horasPassadas > 1 && pedido.status?.toLowerCase() === 'pendente') {
+                    fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedido.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).catch(error => console.error("Erro ao atualizar status para atrasado:", error));
+                    
+                    return { ...pedido, status: 'atrasado' };
+                }
+                return pedido;
+            });
+
+            setPedidos(pedidosAtualizados);
         })
         .catch(error => {
             console.error("Erro ao carregar dados:", error);
