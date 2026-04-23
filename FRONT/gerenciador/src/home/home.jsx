@@ -137,7 +137,7 @@ function Home() {
                         <ul key={pedido.id} className="lista" onClick={() => infoPedido(pedido.id)}>
                             <div id="pedido-id">{pedido.id}</div>
                             <div id="pedido-cliente">{pedido.cliente}</div>
-                            <div id="pedido-data">Data do Pedido: {pedido.dataPedido}</div>
+                            <div id="pedido-data">Data do Pedido: {new Date(pedido.dataPedido).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
                             <FaTrashAlt id='trash-icon' onClick={(e) => {
                                 e.stopPropagation();
                                 deletePedido(pedido.id);

@@ -40,14 +40,18 @@ function InfoPedido() {
                         </ul>
                         <div className='titulo-info-itens'>
                             <p>Itens</p>
-                            <p>Valor Total</p>
                             <p>Quantidade</p>
+                            <p>Preço</p>
+                            <p>Taxa</p>
+                            <p>Valor Total</p>
                         </div>
                         {pedido.itens && pedido.itens.map((item, index) => (
                             <ul key={item.id || index} className='info-itens'>
                                 <div id='pedido'>{item.nome || item.produto}</div>
-                                <div id='preco'>R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</div>
                                 <div id='quantidade'>{item.quantidade}</div>
+                                <div id='preco'>R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</div>
+                                <div id='taxa'>R$ {item.taxa ? item.taxa.toFixed(2) : '0.00'}</div>
+                                <div id='total'>R$ {(item.total).toFixed(2)}</div>
                             </ul>
                         ))}
                         <div className='botoes-opcionais'>
