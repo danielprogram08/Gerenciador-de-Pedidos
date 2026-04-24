@@ -1,7 +1,7 @@
 import './infoPedido.css';
 import { Fragment } from 'react';
 import { FaWhatsapp, FaPrint } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 function InfoPedido() {
@@ -11,7 +11,9 @@ function InfoPedido() {
 
     const Navigate = useNavigate();
     const homepage = () => { Navigate('/home'); }
-    const editProdut = () => { Navigate('/addEdit'); }
+    const editPedido = () => {
+        Navigate('/addEdit', { state: pedido }); 
+    }
     
     if (!pedido) {
         return <div className="container-info-pedido"><h2>Pedido não encontrado.</h2><button onClick={homepage}>Voltar</button></div>;
@@ -51,7 +53,7 @@ function InfoPedido() {
                                 <div id='quantidade'>{item.quantidade}</div>
                                 <div id='preco'>R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</div>
                                 <div id='taxa'>R$ {item.taxa ? item.taxa.toFixed(2) : '0.00'}</div>
-                                <div id='total'>R$ {(item.total).toFixed(2)}</div>
+                                <div id='total'>R$ {item.total ? item.total.toFixed(2) : '0.00'}</div>
                             </ul>
                         ))}
                         <div className='botoes-opcionais'>
@@ -65,7 +67,7 @@ function InfoPedido() {
                     </Fragment>
                 </div>
                 <div className='botoes'>
-                    <button id='editar' onClick={editProdut}>Editar</button>
+                    <button id='editar' onClick={editPedido}>Editar</button>
                     <button id='entregue'>Marcar como entregue</button>
                 </div>
             </div>

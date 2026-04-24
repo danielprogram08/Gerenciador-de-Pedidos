@@ -1,5 +1,5 @@
-import './home.css'
-import { useState, useEffect } from "react"
+import './home.css';
+import { useState, useEffect } from "react";
 import { FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 

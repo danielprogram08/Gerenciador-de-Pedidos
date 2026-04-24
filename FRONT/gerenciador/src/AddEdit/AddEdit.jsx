@@ -1,26 +1,38 @@
 import './AddEdit.css';
 import { useForm } from 'react-hook-form';
 import { CgAdd } from "react-icons/cg";
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function AddEdit() {
 
-    const { register, handleSubmit, reset, resetField, getValues } = useForm();
-    const [Pedido, setPedido] = useState([]);
+    const location = useLocation();
+    const pedidoParaEditar = location.state;
+    const isEditMode = !!pedidoParaEditar;
+
+    const { register, handleSubmit, reset, resetField, getValues, setValue } = useForm();
     const [itens, setItens] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isEditMode && pedidoParaEditar) {
+            setValue('inputNome', pedidoParaEditar.cliente);
+            setValue('inputEndereco', pedidoParaEditar.endereco);
+            setValue('inputTelefone', pedidoParaEditar.telefone);
+            setItens(pedidoParaEditar.itens || []);
+        }
+    }, [isEditMode, pedidoParaEditar, setValue]);
 
     const addItem = () => {
         const novoItem = {
             nome: getValues('inputProduto'),
             preco: parseFloat(getValues('inputValor')),
             quantidade: parseInt(getValues('inputQuantidade'), 10),
-            taxa: parseFloat(getValues('inputTaxa')) || 0
+            taxa: parseFloat(getValues('inputTaxa')) || 0,
         }
-
         if (!novoItem.nome || isNaN(novoItem.quantidade) || isNaN(novoItem.preco)) { alert("Preencha todos os campos do item!"); return; }
-
+        
+        novoItem.total = (novoItem.preco * novoItem.quantidade) + novoItem.taxa;
         setItens([...itens, novoItem]);
         resetField('inputProduto');
         resetField('inputQuantidade');
@@ -28,21 +40,62 @@ function AddEdit() {
         resetField('inputTaxa');
     }
 
-    const cadastrarPedido = (pedido) => {
+    const removerItem = (indexParaRemover) => {
+        setItens(itens.filter((_, index) => index !== indexParaRemover));
+    }
+
+    const handleEdit = (data) => {
+        const pedidoAtualizado = {
+            cliente: data.inputNome,
+            endereco: data.inputEndereco,
+            dataPedido: pedidoParaEditar.dataPedido,
+            itens: itens,
+            telefone: data.inputTelefone,
+            status: pedidoParaEditar.status,
+        };
+
+        if (pedidoAtualizado.itens.length === 0 || pedidoAtualizado.cliente === ""|| pedidoAtualizado.endereco === "" || pedidoAtualizado.telefone === "") {
+            alert("Preencha todos os campos do pedido!");
+            return;
+        }
+
+        const token = localStorage.getItem('token');
+
+        fetch(`http://localhost:8080/pedidos/atualizar?id=${pedidoParaEditar.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(pedidoAtualizado)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Pedido editado com sucesso!");
+                reset();
+                navigate("/home");
+            } else {
+                alert("Falha ao editar o pedido. Verifique sua sessão.");
+            }
+        })
+        .catch(error => console.error("Erro ao editar pedido:", error));
+    }
+
+    const cadastrarPedido = (data) => {
         const now = new Date();
         const localDateTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().substring(0, 19);
 
         const novoPedido = {
-            cliente: pedido.inputNome,
-            endereco: pedido.inputEndereco,
-            telefone: pedido.inputTelefone,
+            cliente: data.inputNome,
+            endereco: data.inputEndereco,
+            telefone: data.inputTelefone,
             itens: itens,
             dataPedido: localDateTime,
             status: "pendente"
         }
         
-        if (novoPedido.itens.length === 0 || novoPedido.cliente === '' || novoPedido.endereco === '' || novoPedido.telefone === '') { 
-            alert("Preencha todos os campos!"); 
+        if (novoPedido.itens.length === 0 || !novoPedido.cliente || !novoPedido.endereco || !novoPedido.telefone) { 
+            alert("Preencha todos os campos e adicione pelo menos um item!"); 
             return;
         }
 
@@ -52,29 +105,38 @@ function AddEdit() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(novoPedido)
         })
         .then(response => {
             if (response.ok) {
                 alert("Pedido cadastrado com sucesso!");
-                setPedido([...Pedido, novoPedido]);
                 reset();
                 setItens([]);
+                navigate('/home');
             } else {
                 alert("Sessão expirada ou sem permissão. Faça login novamente.");
+                navigate('/');
             }
         })
         .catch(error => console.error("Erro ao salvar pedido:", error));
     }
     
+    const onSubmit = (data) => {
+        if (isEditMode) {
+            handleEdit(data);
+        } else {
+            cadastrarPedido(data);
+        }
+    };
+
     return (
         <>
             <div className='addEdit-container'>
-                <h1 className='addEdit-titulo'>Adicionar/Editar Pedido</h1>
+                <h1 className='addEdit-titulo'>{isEditMode ? 'Editar Pedido' : 'Adicionar Pedido'}</h1>
                 <div className='container-divisor'>
-                    <form className='addEdit-formulario' onSubmit={handleSubmit(cadastrarPedido)}>
+                    <form className='addEdit-formulario' onSubmit={handleSubmit(onSubmit)}>
                         <div className='dados-cliente'>
                             <label htmlFor="inputNome">Nome do Cliente:</label>
                             <input type="text" id="inputNome" placeholder='Nome do Cliente:' {...register('inputNome')} />
@@ -89,9 +151,9 @@ function AddEdit() {
                             <label htmlFor="inputQuantidade">Quantidade:</label>
                             <input type="number" id="inputQuantidade" placeholder='Quantidade do item:' {...register('inputQuantidade')} />
                             <label htmlFor="inputValor">Valor:</label>
-                            <input type="number" id="inputValor" placeholder='Valor do item:' {...register('inputValor')} />
+                            <input type="number" id="inputValor" placeholder='Valor do item:' {...register('inputValor')} step="0.01" />
                             <label htmlFor="inputTaxa">Taxa:</label>
-                            <input type="number" id="inputTaxa" placeholder='Valor da taxa:' {...register('inputTaxa')} />
+                            <input type="number" id="inputTaxa" placeholder='Valor da taxa:' {...register('inputTaxa')} step="0.01" />
                         </div>
                         <button type="button" className='btn-adicionar' onClick={addItem}>
                             <CgAdd/>
@@ -107,13 +169,14 @@ function AddEdit() {
                                 <li>Valor: R$ {item.preco ? item.preco.toFixed(2) : '0.00'}</li>
                                 <li>Taxa: R$ {item.taxa ? item.taxa.toFixed(2) : '0.00'}</li>
                                 <li>Total: R$ {item.total ? item.total.toFixed(2) : '0.00'}</li>
+                                <button className='btn-remover-item' type="button" onClick={() => removerItem(index)}>Remover</button>
                             </ul>
                         ))}
                     </div>
                 </div>
                 <div className='botoes-editaveis'>
                     <button type="button" id='btn-cancelar' onClick={() => navigate('/home')}>Cancelar</button>
-                    <button type="submit" id='btn-salvar' onClick={handleSubmit(cadastrarPedido)}>Salvar Pedido</button>
+                    <button type="submit" id='btn-salvar' onClick={handleSubmit(onSubmit)}>Salvar Pedido</button>
                 </div>
             </div>
         </>

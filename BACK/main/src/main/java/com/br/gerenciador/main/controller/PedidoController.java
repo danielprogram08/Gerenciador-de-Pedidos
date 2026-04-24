@@ -45,8 +45,8 @@ public class PedidoController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<String> atualizar(@RequestBody PedidoDTO data) {
-        service.atualizarPedido(data.id(), data);
+    public ResponseEntity<String> atualizar(@RequestParam Long id, @RequestBody PedidoDTO data) {
+        service.atualizarPedido(id, data);
         return ResponseEntity.ok("Pedido atualizado com sucesso!");
     }
 

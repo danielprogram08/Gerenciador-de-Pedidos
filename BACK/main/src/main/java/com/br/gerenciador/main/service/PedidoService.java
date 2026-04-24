@@ -69,6 +69,7 @@ public class PedidoService {
             
             List<Item> novosItens = data.itens().stream().map(itemDTO -> {
                 Item item = new Item();
+                item.setId(itemDTO.id());
                 item.setNome(itemDTO.nome());
                 item.setPreco(itemDTO.preco());
                 item.setQuantidade(itemDTO.quantidade());

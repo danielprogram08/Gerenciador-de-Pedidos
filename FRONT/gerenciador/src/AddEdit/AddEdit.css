@@ -54,6 +54,27 @@
     width: 100%;
 }
 
+.btn-remover-item {
+    height: 70px;
+    width: 100px;
+    background-color: #ff0000;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-remover-item:hover {
+    color: white;
+    font-size: 20px;
+    background-color: #ff4646;
+    transform: scale(1.1);
+}
+
 input {
     width: 90%;
     padding: 10px;
