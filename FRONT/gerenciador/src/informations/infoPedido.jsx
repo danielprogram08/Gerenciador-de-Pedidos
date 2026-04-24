@@ -15,6 +15,30 @@ function InfoPedido() {
         Navigate('/addEdit', { state: pedido }); 
     }
 
+    const enviarWhatsapp = () => {
+        const telefone = pedido.telefone;
+        const totalPedido = pedido.itens.reduce((acc, item) => acc + (item.total || 0), 0);
+        const itensTexto = pedido.itens.map(item => `- ${item.nome} (x${item.quantidade})`).join('\n');
+        
+        const texto = `*ORÇAMENTO:*
+
+*CLIENTE:* ${pedido.cliente}
+
+*ENDEREÇO:* ${pedido.endereco}
+
+*ITENS:*
+${itensTexto}
+
+*TOTAL:* R$ ${totalPedido.toFixed(2)}
+
+*OBS: ENTREGAS A PARTIR DE R$ 30,00*
+
+*FRETE GRÁTIS PARA COMPRAS ACIMA DE R$ 50,00*`;
+        
+        const url = `https://wa.me/${telefone}?text=${encodeURIComponent(texto)}`;
+        window.open(url, '_blank');
+    }
+
     const marcarComoEntregue = () => {
         const token = localStorage.getItem('token');
         const pedidoId = pedido.id;
@@ -78,11 +102,8 @@ function InfoPedido() {
                             </ul>
                         ))}
                         <div className='botoes-opcionais'>
-                            <button id='enviarWhatsapp'>
+                            <button id='enviarWhatsapp' onClick={enviarWhatsapp}>
                                 <FaWhatsapp id='icone-whatsapp' />
-                            </button>
-                            <button id='imprimir'>
-                                <FaPrint id='icone-imprimir' />
                             </button>
                         </div>
                     </Fragment>

@@ -91,7 +91,7 @@
     justify-content: center;
 }
 
-#enviarWhatsapp, #imprimir {
+#enviarWhatsapp {
     width: 50px;
     height: 50px;
     background-image: url('../assets/whatsapp-icon.png');
@@ -106,19 +106,15 @@
     background-color: #3b0503;
 }
 
-#icone-whatsapp, #icone-imprimir {
+#icone-whatsapp {
     width: 30px;
     height: 30px;
     color: white;
 }
 
-#enviarWhatsapp:hover, #imprimir:hover {
+#enviarWhatsapp:hover {
     background-color: #800b07;
     transform: scale(1.1);
-}
-
-#imprimir {
-    background-color: #3b0503;
 }
 
 .botoes {
