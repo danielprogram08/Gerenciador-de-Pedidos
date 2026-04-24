@@ -35,10 +35,9 @@ function Home() {
                 const horasPassadas = (agora - dataDoPedido) / (1000 * 60 * 60);
 
                 if (horasPassadas > 1 && pedido.status?.toLowerCase() === 'pendente') {
-                    fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedido.id}`, {
+                    fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedido.id}&novoStatus=atrasado`, {
                         method: 'PUT',
                         headers: {
-                            'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`
                         }
                     }).catch(error => console.error("Erro ao atualizar status para atrasado:", error));

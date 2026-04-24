@@ -14,6 +14,27 @@ function InfoPedido() {
     const editPedido = () => {
         Navigate('/addEdit', { state: pedido }); 
     }
+
+    const marcarComoEntregue = () => {
+        const token = localStorage.getItem('token');
+        const pedidoId = pedido.id;
+
+        fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedidoId}&novoStatus=entregue`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Pedido marcado como entregue com sucesso!");
+                Navigate('/home');
+            } else {
+                alert("Falha ao marcar o pedido como entregue. Verifique sua sessão.");
+            }
+        })
+        .catch(error => console.error("Erro ao marcar o pedido como entregue:", error));
+    }
     
     if (!pedido) {
         return <div className="container-info-pedido"><h2>Pedido não encontrado.</h2><button onClick={homepage}>Voltar</button></div>;
@@ -68,7 +89,7 @@ function InfoPedido() {
                 </div>
                 <div className='botoes'>
                     <button id='editar' onClick={editPedido}>Editar</button>
-                    <button id='entregue'>Marcar como entregue</button>
+                    <button id='entregue' onClick={marcarComoEntregue}>Marcar como entregue</button>
                 </div>
             </div>
         </>

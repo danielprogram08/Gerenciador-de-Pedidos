@@ -45,10 +45,13 @@ function AddEdit() {
     }
 
     const handleEdit = (data) => {
+        const now = new Date();
+        const localDateTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().substring(0, 19);
+
         const pedidoAtualizado = {
             cliente: data.inputNome,
             endereco: data.inputEndereco,
-            dataPedido: pedidoParaEditar.dataPedido,
+            dataPedido: localDateTime,
             itens: itens,
             telefone: data.inputTelefone,
             status: pedidoParaEditar.status,
