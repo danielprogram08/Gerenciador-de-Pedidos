@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,22 +25,30 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "Pedido")
+@Table(name = "pedido")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "cliente", length = 255, nullable = false)
     private String cliente;
+
+    @Column(name = "endereco", length = 255, nullable = false)
     private String endereco;
 
+    @Column(name = "data_pedido", nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataPedido;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens;
     
+    @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
+
+    @Column(name = "status", length = 50, nullable = false)
     private String status;
 
     public Pedido(Long id, String cliente, LocalDateTime dataPedido, String status) {

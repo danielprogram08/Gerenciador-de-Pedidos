@@ -9,6 +9,6 @@ import com.br.gerenciador.main.domain.dto.PedidoProjection;
 import com.br.gerenciador.main.domain.entity.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    @Query(nativeQuery = true, value = "SELECT ID, CLIENTE, DATA_PEDIDO, STATUS FROM PEDIDO")
+    @Query(nativeQuery = true, value = "SELECT id, cliente, data_pedido, status FROM pedido")
     List<PedidoProjection> findProjection();
 }

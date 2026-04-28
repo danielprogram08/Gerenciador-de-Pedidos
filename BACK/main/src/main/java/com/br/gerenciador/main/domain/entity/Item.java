@@ -1,6 +1,8 @@
 package com.br.gerenciador.main.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +30,20 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", length = 255, nullable = false)
     private String nome;
+
+    @Column(name = "preco", nullable = false)
     private Double preco;
+
+    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
+
+    @Column(name = "taxa", nullable = false)
     private double taxa;
+
+    @Column(name = "total", nullable = false)
     private double total;
 
     @ManyToOne
