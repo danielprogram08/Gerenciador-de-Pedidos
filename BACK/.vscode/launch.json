@@ -10,7 +10,8 @@
                 "env": {
                     "DB_USER": "admin",
                     "DB_PASSWORD": "admin",
-                    "JWT_SECRET": "my-secret-key"
+                    "JWT_SECRET": "my-secret-key",
+                    "URL_FRONT": "http://localhost:5173"
                 }
             }
         ]

@@ -7,11 +7,13 @@ function Home() {
 
     const Navigate = useNavigate();
     const [pedidos, setPedidos] = useState([]);
+    
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('http://localhost:8080/pedidos/projection', {
+        fetch(`${API_URL}/pedidos/projection`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ function Home() {
                 const horasPassadas = (agora - dataDoPedido) / (1000 * 60 * 60);
 
                 if (horasPassadas > 1 && pedido.status?.toLowerCase() === 'pendente') {
-                    fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedido.id}&novoStatus=atrasado`, {
+                    fetch(`${API_URL}/pedidos/atualizarStatus?id=${pedido.id}&novoStatus=atrasado`, {
                         method: 'PUT',
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -83,7 +85,7 @@ function Home() {
         try {
             const token = localStorage.getItem('token');
             
-            const response = await fetch(`http://localhost:8080/pedidos/listar?id=${id}`, {
+            const response = await fetch(`${API_URL}/pedidos/listar?id=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,7 +110,7 @@ function Home() {
         try {
             const token = localStorage.getItem('token');
             
-            const response = await fetch(`http://localhost:8080/pedidos/excluir?id=${id}`, {
+            const response = await fetch(`${API_URL}/pedidos/excluir?id=${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -13,6 +13,8 @@ function AddEdit() {
     const { register, handleSubmit, reset, resetField, getValues, setValue } = useForm();
     const [itens, setItens] = useState([]);
     const navigate = useNavigate();
+    
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
     useEffect(() => {
         if (isEditMode && pedidoParaEditar) {
@@ -64,7 +66,7 @@ function AddEdit() {
 
         const token = localStorage.getItem('token');
 
-        fetch(`http://localhost:8080/pedidos/atualizar?id=${pedidoParaEditar.id}`, {
+        fetch(`${API_URL}/pedidos/atualizar?id=${pedidoParaEditar.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -104,7 +106,7 @@ function AddEdit() {
 
         const token = localStorage.getItem('token');
 
-        fetch('http://localhost:8080/pedidos/cadastrar', {
+        fetch(`${API_URL}/pedidos/cadastrar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

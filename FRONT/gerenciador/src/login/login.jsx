@@ -9,6 +9,8 @@ function Login() {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
   const handleLogin = (user) => {
     setLoading(true);
@@ -22,7 +24,7 @@ function Login() {
       return;
     }
 
-    fetch('http://localhost:8080/auth/login', {
+    fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

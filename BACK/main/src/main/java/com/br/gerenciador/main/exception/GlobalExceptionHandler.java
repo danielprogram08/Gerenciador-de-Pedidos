@@ -14,4 +14,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage error = new RestErrorMessage(exception.getMessage(), HttpStatus.UNAUTHORIZED.toString());
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(TokenErrorMessage.class)
+    public ResponseEntity<RestErrorMessage> handleTokenError(TokenErrorMessage exception) {
+        RestErrorMessage error = new RestErrorMessage(exception.getMessage(), HttpStatus.UNAUTHORIZED.toString());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(OrderErrorMessage.class)
+    public ResponseEntity<RestErrorMessage> handleRegisterOrderError(OrderErrorMessage exception) {
+        RestErrorMessage error = new RestErrorMessage(exception.getMessage(), HttpStatus.BAD_REQUEST.toString());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }    
 }
