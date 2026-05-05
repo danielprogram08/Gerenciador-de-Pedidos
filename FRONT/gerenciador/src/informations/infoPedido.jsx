@@ -58,7 +58,10 @@ ${itensTexto}
                 alert("Falha ao marcar o pedido como entregue. Verifique sua sessão.");
             }
         })
-        .catch(error => console.error("Erro ao marcar o pedido como entregue:", error));
+        .catch(error => {
+            console.error("Erro ao marcar o pedido como entregue:", error);
+            alert("Erro de rede: Não foi possível conectar ao servidor. Verifique sua conexão e se a API está online.");
+        });
     }
     
     if (!pedido) {
