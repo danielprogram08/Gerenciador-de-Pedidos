@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 function InfoPedido() {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
     const location = useLocation();
     const pedido = location.state;
@@ -43,7 +44,7 @@ ${itensTexto}
         const token = localStorage.getItem('token');
         const pedidoId = pedido.id;
 
-        fetch(`http://localhost:8080/pedidos/atualizarStatus?id=${pedidoId}&novoStatus=entregue`, {
+        fetch(`${API_URL}/pedidos/atualizarStatus?id=${pedidoId}&novoStatus=entregue`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`
