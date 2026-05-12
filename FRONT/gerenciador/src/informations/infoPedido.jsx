@@ -21,22 +21,22 @@ function InfoPedido() {
         const itensTexto = itens.map(item => `- ${item.nome || item.produto} (x${item.quantidade})`).join('\n');
         
         return `
-====NEIDE CONSTRUÇÕES & RAÇÕES====
+====𝐍𝐄𝐈𝐃𝐄 𝐂𝐎𝐍𝐒𝐓𝐑𝐔ÇÕ𝐄𝐒 & 𝐑𝐀ÇÕ𝐄𝐒====
 
-*ORÇAMENTO:*
+*𝐎𝐑Ç𝐀𝐌𝐄𝐍𝐓𝐎:*
 
-*CLIENTE:* ${pedido.cliente}
+*𝐂𝐋𝐈𝐄𝐍𝐓𝐄:* ${pedido.cliente}
 
-*ENDEREÇO:* ${pedido.endereco}
+*𝐄𝐍𝐃𝐄𝐑𝐄Ç𝐎:* ${pedido.endereco}
 
-*ITENS:*
+*𝐈𝐓𝐄𝐍𝐒:*
 ${itensTexto}
 
-*TOTAL:* R$ ${totalPedido.toFixed(2)}
+*𝐓𝐎𝐓𝐀𝐋:* R$ ${totalPedido.toFixed(2)}
 
-*OBS: ENTREGAS A PARTIR DE R$ 30,00*
+*𝐎𝐁𝐒: 𝐄𝐍𝐓𝐑𝐄𝐆𝐀𝐒 𝐀 𝐏𝐀𝐑𝐓𝐈𝐑 𝐃𝐄 𝐑$ 𝟑𝟎,𝟎𝟎*
 
-*FRETE GRÁTIS PARA COMPRAS ACIMA DE R$ 50,00*
+*𝐅𝐑𝐄𝐓𝐄 𝐆𝐑Á𝐓𝐈𝐒 𝐏𝐀𝐑𝐀 𝐂𝐎𝐌𝐏𝐑𝐀𝐒 𝐀𝐂𝐈𝐌𝐀 𝐃𝐄 𝐑$ 𝟓𝟎,𝟎𝟎*
 
 ======================================`;
     }
