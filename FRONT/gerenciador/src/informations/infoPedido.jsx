@@ -1,8 +1,7 @@
 import './infoPedido.css';
 import { Fragment } from 'react';
 import { FaWhatsapp, FaPrint } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function InfoPedido() {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
@@ -16,12 +15,15 @@ function InfoPedido() {
         Navigate('/addEdit', { state: pedido }); 
     }
 
-    const enviarWhatsapp = () => {
-        const telefone = pedido.telefone;
-        const totalPedido = pedido.itens.reduce((acc, item) => acc + (item.total || 0), 0);
-        const itensTexto = pedido.itens.map(item => `- ${item.nome} (x${item.quantidade})`).join('\n');
+    const gerarTextoPedido = () => {
+        const itens = pedido.itens || [];
+        const totalPedido = itens.reduce((acc, item) => acc + (item.total || 0), 0);
+        const itensTexto = itens.map(item => `- ${item.nome || item.produto} (x${item.quantidade})`).join('\n');
         
-        const texto = `*ORÇAMENTO:*
+        return `
+====NEIDE CONSTRUÇÕES & RAÇÕES====
+
+*ORÇAMENTO:*
 
 *CLIENTE:* ${pedido.cliente}
 
@@ -34,10 +36,46 @@ ${itensTexto}
 
 *OBS: ENTREGAS A PARTIR DE R$ 30,00*
 
-*FRETE GRÁTIS PARA COMPRAS ACIMA DE R$ 50,00*`;
+*FRETE GRÁTIS PARA COMPRAS ACIMA DE R$ 50,00*
+
+======================================`;
+    }
+
+    const enviarWhatsapp = () => {
+        const telefone = pedido.telefone;
+        const texto = gerarTextoPedido();
         
         const url = `https://wa.me/${telefone}?text=${encodeURIComponent(texto)}`;
         window.open(url, '_blank');
+    }
+
+    const imprimirPedido = () => {
+        const texto = gerarTextoPedido();
+        const novaJanela = window.open('', '_blank');
+        novaJanela.document.write(`
+            <html>
+            <head>
+                <title>Pedido</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                    }
+                    h1 {
+                        color: #333;
+                    }
+                    p {
+                        margin-bottom: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+                <pre>${texto}</pre>
+            </body>
+            </html>
+        `);
+        novaJanela.document.close();
+        novaJanela.print();
     }
 
     const marcarComoEntregue = () => {
@@ -108,6 +146,9 @@ ${itensTexto}
                         <div className='botoes-opcionais'>
                             <button id='enviarWhatsapp' onClick={enviarWhatsapp}>
                                 <FaWhatsapp id='icone-whatsapp' />
+                            </button>
+                            <button id='imprimir' onClick={imprimirPedido}>
+                                <FaPrint id='icone-print' />
                             </button>
                         </div>
                     </Fragment>

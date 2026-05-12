@@ -91,19 +91,16 @@
     justify-content: center;
 }
 
-#enviarWhatsapp {
+#enviarWhatsapp, #imprimir {
     width: 50px;
     height: 50px;
     background-image: url('../assets/whatsapp-icon.png');
     background-size: cover;
     background-position: center;
+    background-color: #3b0503;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-#enviarWhatsapp {
-    background-color: #3b0503;
 }
 
 #icone-whatsapp {
@@ -112,7 +109,7 @@
     color: white;
 }
 
-#enviarWhatsapp:hover {
+#enviarWhatsapp:hover, #imprimir:hover {
     background-color: #800b07;
     transform: scale(1.1);
 }
