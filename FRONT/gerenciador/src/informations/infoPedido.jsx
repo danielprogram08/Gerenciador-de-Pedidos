@@ -57,15 +57,18 @@ ${itensTexto}
             <head>
                 <title>Pedido</title>
                 <style>
+                    @page {
+                        size: 576px auto;
+                        margin: 0;
+                    }
                     body {
-                        font-family: Arial, sans-serif;
-                        padding: 20px;
+                        font-family: 'Courier New', Courier, monospace;
+                        padding: 10px;
+                        width: 576px;
                     }
-                    h1 {
-                        color: #333;
-                    }
-                    p {
-                        margin-bottom: 10px;
+                    pre {
+                        white-space: pre-wrap;
+                        word-wrap: break-word;
                     }
                 </style>
             </head>
@@ -75,7 +78,9 @@ ${itensTexto}
             </html>
         `);
         novaJanela.document.close();
+        novaJanela.focus();
         novaJanela.print();
+        novaJanela.close();
     }
 
     const marcarComoEntregue = () => {
