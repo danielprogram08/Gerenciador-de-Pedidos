@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app-frontend:
+    build: ./FRONT/gerenciador/
+    ports:
+      - "5173:5173"
+    environment:
+      - REACT_APP_API_URL=${URL_BACK}
+    depends_on:
+      - app-backend
+    networks:
+      - network-application
+
+  app-backend:
+    build: ./BACK/main/
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_JWT_SECRET: ${JWT_SECRET}
+      - SPRING_DATABASE_URL: ${DB_URL}
+      - SPRING_DATABASE_USERNAME: ${DB_USER}
+      - SPRING_DATABASE_PASSWORD: ${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      - SPRING_PROFILES_ACTIVE: homolog
+      - URL_FRONT: ${URL_FRONT}
+    depends_on:
+      - db
+    networks:
+      - network-application
+
+  db:
+    image: mysql:latest
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - network-application
+
+networks:
+  network-application:
+    driver: bridge

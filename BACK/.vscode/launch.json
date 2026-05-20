@@ -8,6 +8,8 @@
                 "mainClass": "com.br.gerenciador.main.MainApplication",
                 "projectName": "main",
                 "env": {
+                    "DB_DATABASE": "PedidosDB",
+                    "DB_URL": "jdbc:mysql://localhost:3306/PedidosDB?useTimezone=true&serverTimezone=UTC",
                     "DB_USER": "admin",
                     "DB_PASSWORD": "admin",
                     "JWT_SECRET": "my-secret-key",
