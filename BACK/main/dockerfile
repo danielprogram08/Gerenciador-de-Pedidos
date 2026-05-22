@@ -1,9 +1,27 @@
-FROM eclipse-temurin:21-jdk-jammy
-
+# Etapa 1: Build da aplicação (Usa uma imagem com JDK)
+FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
 
-COPY target/*.jar app.jar
+# Copia os arquivos do Maven e o código-fonte
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+# Dá permissão de execução para o mvnw (necessário em ambientes Linux/Mac)
+RUN chmod +x ./mvnw
+
+# Compila o projeto gerando o .jar
+RUN ./mvnw clean package -DskipTests
+
+# Etapa 2: Execução da aplicação (Usa uma imagem mais leve apenas com o JRE)
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Copia O .jar gerado na Etapa 1 para esta nova imagem
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+# Inicia a aplicação
+ENTRYPOINT ["java", "-jar", "app.jar"]

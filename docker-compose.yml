@@ -1,17 +1,19 @@
 services:
   app-frontend:
-    build: ./FRONT/gerenciador/
+    build:
+      context: ./FRONT/gerenciador
     ports:
       - "5173:5173"
     environment:
-      - REACT_APP_API_URL=app-backend:8080
+      - VITE_API_URL=http://localhost:8080
     depends_on:
       - app-backend
     networks:
       - network-application
 
   app-backend:
-    build: ./BACK/main/
+    build:
+      context: ./BACK/main
     ports:
       - "8080:8080"
     environment:
@@ -22,7 +24,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
       - SPRING_PROFILES_ACTIVE=homolog
-      - URL_FRONT=http://app-frontend:5173
+      - URL_FRONT=http://localhost:5173
     depends_on:
       - db
     networks:
