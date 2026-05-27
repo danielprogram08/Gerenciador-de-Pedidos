@@ -2,6 +2,8 @@ services:
   app-frontend:
     build:
       context: ./FRONT/gerenciador
+    container_name: react-app
+    restart: always
     ports:
       - "5173:5173"
     environment:
@@ -14,6 +16,8 @@ services:
   app-backend:
     build:
       context: ./BACK/main
+    container_name: spring-boot-app
+    restart: always
     ports:
       - "8080:8080"
     environment:
