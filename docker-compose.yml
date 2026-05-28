@@ -21,16 +21,15 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_JWT_SECRET=my-secret-key
-      - SPRING_DATABASE_URL=jdbc:mysql://db:3306/PedidosDB
-      - SPRING_DATABASE_USERNAME=admin
-      - SPRING_DATABASE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - SPRING_PROFILES_ACTIVE=homolog
-      - URL_FRONT=http://localhost:5173
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
     depends_on:
       - db
+    env_file:
+      - ./BACK/main/.env
     networks:
       - network-application
 
