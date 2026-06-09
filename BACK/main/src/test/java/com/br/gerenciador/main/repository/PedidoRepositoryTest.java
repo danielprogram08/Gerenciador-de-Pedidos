@@ -2,6 +2,7 @@ package com.br.gerenciador.main.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class PedidoRepositoryTest {
     @Test
     public void findProjection_DeveRetornarUmaListaDeProjecaoDePedido() {
         Pedido pedido = new Pedido();
+        pedido.setCliente("João da Silva");
+        pedido.setEndereco("Rua das Flores, 123");
+        pedido.setDataPedido(LocalDateTime.parse("2026-04-21T22:30:00"));
+        pedido.setTelefone("11987654321");
+        pedido.setStatus("pendente");
 
         entityManager.persistAndFlush(pedido);
 

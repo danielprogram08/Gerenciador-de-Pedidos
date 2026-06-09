@@ -1,6 +1,7 @@
 package com.br.gerenciador.main.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,7 +44,7 @@ public class Pedido {
     private LocalDateTime dataPedido;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itens;
+    private List<Item> itens = new ArrayList<>();
     
     @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;

@@ -67,9 +67,8 @@ public class Usuario implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.perfil == UsuarioADM.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ADMIN"));
-        } else {
-            return null;
         }
+        return List.of();
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.br.gerenciador.main.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -161,10 +160,22 @@ class PedidoServiceTest {
     @DisplayName("Deve excluir um pedido com sucesso")
     void excluirPedido_QuandoIdExiste_DeveChamarDeleteById() {
         Long idParaExcluir = 1L;
-        doNothing().when(pedidoRepository).deleteById(idParaExcluir);
+        when(pedidoRepository.existsById(idParaExcluir)).thenReturn(true);
 
         pedidoService.excluirPedido(idParaExcluir);
 
+        verify(pedidoRepository, times(1)).existsById(idParaExcluir);
         verify(pedidoRepository, times(1)).deleteById(idParaExcluir);
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar excluir pedido com ID inexistente")
+    void excluirPedido_QuandoIdNaoExiste_DeveLancarRuntimeException() {
+        Long idInexistente = 99L;
+        when(pedidoRepository.existsById(idInexistente)).thenReturn(false);
+
+        assertThatThrownBy(() -> pedidoService.excluirPedido(idInexistente)).isInstanceOf(RuntimeException.class).hasMessage("Não é possível excluir: Pedido não encontrado com o ID: 99");
+        verify(pedidoRepository, times(1)).existsById(idInexistente);
+        verify(pedidoRepository, never()).deleteById(any());
     }
 }

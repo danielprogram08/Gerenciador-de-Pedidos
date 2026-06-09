@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -47,9 +48,9 @@ public class ConfiguracaoSeguranca {
 						.requestMatchers(HttpMethod.POST, "/pedidos/cadastrar").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/pedidos/listar").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/pedidos/projection").hasAuthority("ADMIN")
-						.requestMatchers(HttpMethod.POST, "/pedidos/atualizar").hasAuthority("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/pedidos/atualizar").hasAuthority("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/pedidos/excluir").hasAuthority("ADMIN")
-						.requestMatchers(HttpMethod.DELETE, "/pedidos/atualizarStatus").hasAuthority("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/pedidos/atualizarStatus").hasAuthority("ADMIN")
 						.requestMatchers("/error").permitAll()
 						.anyRequest().authenticated()
 				)
@@ -80,6 +81,7 @@ public class ConfiguracaoSeguranca {
 	}
 
 	@Bean(initMethod = "start", destroyMethod = "stop")
+	@Profile("dev")
     public Server h2Server() throws SQLException {
         return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
     }
