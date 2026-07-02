@@ -43,9 +43,18 @@ ${itensTexto}
 
     const enviarWhatsapp = () => {
         const telefone = pedido.telefone;
+        if (!telefone) {
+            alert("Número de telefone não encontrado para este pedido.");
+            return;
+        }
         const texto = gerarTextoPedido();
         
-        const url = `https://wa.me/${telefone}?text=${encodeURIComponent(texto)}`;
+        // Remove caracteres não numéricos e verifica se o código do país (55) precisa ser adicionado.
+        let telefoneSanitizado = telefone.replace(/\D/g, '');
+        if (telefoneSanitizado.length === 10 || telefoneSanitizado.length === 11) {
+            telefoneSanitizado = '55' + telefoneSanitizado;
+        }
+        const url = `https://wa.me/${telefoneSanitizado}?text=${encodeURIComponent(texto)}`;
         window.open(url, '_blank');
     }
 
