@@ -4,7 +4,7 @@ import { FaWhatsapp, FaPrint } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function InfoPedido() {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    const API_URL = import.meta.env.VITE_API_URL || 'http://192.168.18.134:8080';
 
     const location = useLocation();
     const pedido = location.state;
