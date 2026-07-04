@@ -38,7 +38,7 @@ ${itensTexto}
 
 *𝐅𝐑𝐄𝐓𝐄 𝐆𝐑Á𝐓𝐈𝐒 𝐏𝐀𝐑𝐀 𝐂𝐎𝐌𝐏𝐑𝐀𝐒 𝐀𝐂𝐈𝐌𝐀 𝐃𝐄 𝐑$ 𝟓𝟎,𝟎𝟎*
 
-======================================`;
+======================================`.trim();
     }
 
     const enviarWhatsapp = () => {
@@ -47,14 +47,14 @@ ${itensTexto}
             alert("Número de telefone não encontrado para este pedido.");
             return;
         }
-        const texto = gerarTextoPedido();
+        const texto = encodeURIComponent(gerarTextoPedido());
         
         // Remove caracteres não numéricos e verifica se o código do país (55) precisa ser adicionado.
         let telefoneSanitizado = telefone.replace(/\D/g, '');
         if (telefoneSanitizado.length === 10 || telefoneSanitizado.length === 11) {
             telefoneSanitizado = '55' + telefoneSanitizado;
         }
-        const url = `https://wa.me/${telefoneSanitizado}?text=${encodeURIComponent(texto)}`;
+        const url = `https://api.whatsapp.com/send?phone=${telefoneSanitizado}&text=${texto}`;
         window.open(url, '_blank');
     }
 
