@@ -10,7 +10,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
-  const API_URL = import.meta.env.VITE_API_URL || 'http://192.168.18.134:8080';
+  const API_URL = `${window.location.protocol}//${window.location.hostname}:8080`;
 
   const handleLogin = (user) => {
     setLoading(true);
