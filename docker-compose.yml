@@ -1,34 +1,4 @@
 services:
-  pihole:
-    container_name: pihole
-    # Adiciona "Linux Capabilities" ao contêiner. O Pi-hole precisa de permissões elevadas 
-    # para modificar configurações de rede e otimizar seu desempenho.
-    # - NET_ADMIN: Necessário para funcionalidades de rede avançadas (como o servidor DHCP do Pi-hole).
-    # - SYS_TIME: Permite que o contêiner sincronize o tempo do sistema.
-    # - SYS_NICE: Permite que o processo do Pi-hole tenha prioridade de processamento.
-    cap_add:
-      - NET_ADMIN
-      - SYS_TIME
-      - SYS_NICE
-    restart: unless-stopped
-    image: pihole/pihole:latest
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      # Porta 80 para a interface web de administração do Pi-hole (HTTP).
-      - "80:80/tcp"
-      # Porta 443 para a interface web de administração do Pi-hole (HTTPS).
-      - "443:443/tcp"
-    environment:
-      # Define o fuso horário para logs e agendamentos corretos.
-      TZ: 'Europe/London'
-      # Configura o DNS do Pi-hole para escutar em todas as interfaces de rede dentro do contêiner.
-      FTLCONF_dns_listeningMode: 'ALL'
-    volumes:
-      - './etc-pihole:/etc/pihole'
-    networks:
-      - network-application
-
   app-frontend:
     build:
       context: ./FRONT/gerenciador
